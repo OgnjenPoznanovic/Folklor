@@ -44,8 +44,8 @@ public class Clan {
 	@Column(name="pol")
 	private String pol;
 	
-	@Column(name="goidna_upisa")
-	private int goidna_upisa;
+	@Column(name="godina_upisa")
+	private int godina_upisa;
 	
 	@Column(name="email")
 	private String email;
@@ -95,7 +95,7 @@ public class Clan {
 	public Clan() {
 	}
 
-	public Clan(String username, String password, Boolean enabled, String ime, String prezime, int godiste, String pol, int goidna_upisa,
+	public Clan(String username, String password, Boolean enabled, String ime, String prezime, int godiste, String pol, int godina_upisa,
 			String email, String telefon, String zanimanje) {
 		
 		this.username = username;
@@ -105,7 +105,7 @@ public class Clan {
 		this.prezime = prezime;
 		this.godiste = godiste;
 		this.pol = pol;
-		this.goidna_upisa = goidna_upisa;
+		this.godina_upisa = godina_upisa;
 		this.email = email;
 		this.telefon = telefon;
 		this.zanimanje = zanimanje;
@@ -128,7 +128,8 @@ public class Clan {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
+	
 	public String getPassword() {
 		return password;
 	}
@@ -179,12 +180,12 @@ public class Clan {
 		this.pol = pol;
 	}
 
-	public int getGoidna_upisa() {
-		return goidna_upisa;
+	public int getGodina_upisa() {
+		return godina_upisa;
 	}
 
-	public void setGoidna_upisa(int goidna_upisa) {
-		this.goidna_upisa = goidna_upisa;
+	public void setGodina_upisa(int godina_upisa) {
+		this.godina_upisa = godina_upisa;
 	}
 
 	public String getEmail() {
@@ -268,6 +269,8 @@ public class Clan {
 
         koreografije.add(tempKoreografija);
     }
+	
+	
 	
 	
 	
