@@ -15,11 +15,20 @@
 </head>
 <body>
 
+	<script>
+        
+        window.history.pushState({}, "", "/home");
+    </script>
+
 	<h1> Почетна страница </h1>	
 	
 	<a th:href="@{clanovi/registration}">Регистрација</a>
 	
 	
+	
+	<br><br>
+	
+	<a th:href="@{uloge/role}">Dodela uloge</a>
 	
 	<br><br>
 	

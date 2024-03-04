@@ -52,13 +52,14 @@
 <body>
 
 <h2>Додељивање улоге</h2>
-<form action="process_form.php" method="POST">
-    <label for="username">Корисничко име:</label>
-    <input type="text" id="username" name="username" maxlength="128" required>
+
+<form action=# th:action="@{/uloge/save}" th:object="${uloge}" method="POST">
+    <label >Корисничко име:</label>
+    <input type="text" th:field="*{username}" maxlength="128" required>
 
 
-    <label for="uloga">Улога</label>
-    <input type="text" id="uloga" name="uloga" maxlength="50" required>
+    <label>Улога</label>
+    <input type="text" th:field="*{uloga}" maxlength="50" required>
 
 
     <input type="submit" value="Додели улогу">

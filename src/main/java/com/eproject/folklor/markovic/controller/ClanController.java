@@ -28,7 +28,7 @@ public class ClanController {
 		
 		clanService.save(theClan);
 		
-		return "clanRole.html";
+		return "home.html";
 	}
 
 	
