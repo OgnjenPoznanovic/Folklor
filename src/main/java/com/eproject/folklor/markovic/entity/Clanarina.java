@@ -54,6 +54,18 @@ public class Clanarina {
 	public Clanarina() {
 		
 	}
+	
+	
+
+	public Clanarina(int clanarina_id, String mesec, String godina, int cena) {
+		
+		this.clanarina_id = clanarina_id;
+		this.mesec = mesec;
+		this.godina = godina;
+		this.cena = cena;
+	}
+
+
 
 	public Clanarina(String mesec, String godina, int cena) {
 		this.mesec = mesec;
