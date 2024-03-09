@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чланарине-пријава</title>
+    <title>Ансамбли-пријава</title>
     <style>
         body {
             background-color: black;
@@ -76,19 +76,16 @@ a:hover {
 </head>
 <body>
 
-  <form action=# th:action="@{/clanarina/save}" th:object="${clanarina}" method="POST">
+  <form action=# th:action="@{/ansambl/save}" th:object="${ansambl}" method="POST">
      
      	<div class="first-column">
-     	<input type="hidden" th:field="*{clanarina_id}" />
+     	<input type="hidden" th:field="*{ansambl_id}" />
      	
-        <label >Месец:</label>
-        <input type="text" th:field="*{mesec}" required>
+        <label>Назив:</label>
+        <input type="text" th:field="*{naziv}" required>
         
-        <label >Година:</label>
-        <input type="text" th:field="*{godina}" >
-
-        <label >Цена:</label>
-        <input type="number" th:field="*{cena}" >
+        
+      
           
          <input type="submit" value="Додај">
          </div> 

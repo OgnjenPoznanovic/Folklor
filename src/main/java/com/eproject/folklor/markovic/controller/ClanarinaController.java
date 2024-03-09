@@ -32,7 +32,7 @@ public class ClanarinaController {
 	
 	
 	@GetMapping("/list")
-	public String newClanarina(Model theModel) {
+	public String showList(Model theModel) {
 		
 		
 		List<Clanarina> theClanarine = clanarinaService.findAll();

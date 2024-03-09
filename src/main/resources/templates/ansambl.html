@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чланарине</title>
+    <title>Ансамбли</title>
     <style>
     
      body {
@@ -143,33 +143,31 @@
         
     </div>
 
-	<a id="addButton" th:href=@{/clanarina/showForm} >
-		Додај чланарину
+	<a id="addButton" th:href=@{/ansambl/showForm} >
+		Додај ансамбл
 	</a>
 	 
 	
 	<table class="table table-bordered table-striped">
 		<thead >
 			<tr>
-				<th>Месец</th>
-				<th>Година</th>
-				<th>Цена</th>
+				<th>Назив</th>
+				
 				<th>Акције</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="tempClanarina : ${clanarine}">
-				<td th:text="${tempClanarina.mesec}"/>
-				<td th:text="${tempClanarina.godina}"/>
-				<td th:text="${tempClanarina.cena}"/>
+			<tr th:each="tempAnsambl : ${ansambli}">
+				<td th:text="${tempAnsambl.naziv}"/>
+				
 				
 				
 				<td>
 					<a class="btn btn-info btn-sm"
-					 th:href="@{/clanarina/showFormForUpdate(clanarina_id=${tempClanarina.clanarina_id})}"				
+					 th:href="@{/ansambl/showFormForUpdate(ansambl_id=${tempAnsambl.ansambl_id})}"				
 					 > Ажурирај </a>
 				 	<a class="btn btn-danger btn-sm"
-				 	th:href="@{/clanarina/delete(clanarina_id=${tempClanarina.clanarina_id})}"> 
+				 	th:href="@{/ansambl/delete(ansambl_id=${tempAnsambl.ansambl_id})}"> 
 				 	Обриши </a>
 				</td>
 			</tr>
