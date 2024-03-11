@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ансамбли-пријава</title>
+    <style>
+        body {
+            background-color: black;
+            color: yellow;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: yellow;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            text-align: left;
+        }
+
+        .first-column,
+        .second-column {
+            grid-column: span 1;
+        }
+		
+		
+a {
+    text-decoration: none;
+    color: yellow; 
+}
+
+
+a:visited {
+    color: yellow; 
+}
+
+
+a:hover {
+    color: white; 
+}
+
+        
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: yellow;
+            color: black;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: black;
+            color: yellow;
+        }
+    </style>
+
+    
+</head>
+<body>
+
+  <form action=# th:action="@{/koreografija/save}" th:object="${koreografija}" method="POST">
+     
+     	<div class="first-column">
+     	<input type="hidden" th:field="*{koreografija_id}" />
+     	
+        <label>Назив:</label>
+        <input type="text" th:field="*{naziv}" required>
+        
+        <label>Број парова:</label>
+        <input type="text" th:field="*{broj_parova}" required>
+        
+        <label>Трајање:</label>
+        <input type="text" th:field="*{trajanje}" required>
+        
+        <label>Број момака:</label>
+        <input type="text" th:field="*{broj_momaka}" required>
+        
+        <label>Број девојака:</label>
+        <input type="text" th:field="*{broj_devojaka}" required>
+        
+        
+      
+          
+         <input type="submit" value="Додај">
+         </div> 
+       
+    
+  
+   
+
+</form>
+</body>
+</html>
