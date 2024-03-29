@@ -20,7 +20,7 @@ public class Clan {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="clan_id")
+	@Column(name="igrac_id")
 	private int clan_id;
 	
 	@Column(name="username")
@@ -113,6 +113,12 @@ public class Clan {
 
 	
 	
+	public Clan(String ime, String prezime) {
+		
+		this.ime = ime;
+		this.prezime = prezime;
+	}
+
 	public int getClan_id() {
 		return clan_id;
 	}
@@ -217,6 +223,16 @@ public class Clan {
     }
 	
 	
+	
+	
+	public List<Ansambl> getAnsambli() {
+		return ansambli;
+	}
+
+	public void setAnsambli(List<Ansambl> ansambli) {
+		this.ansambli = ansambli;
+	}
+
 	public void addAnsambl(Ansambl tempAnsambl) {
 
         if (ansambli == null) {
@@ -269,7 +285,16 @@ public class Clan {
 
         koreografije.add(tempKoreografija);
     }
+
+	public List<Proba> getProbe() {
+		return probe;
+	}
+
+	public void setProbe(List<Proba> probe) {
+		this.probe = probe;
+	}
 	
+	 
 	
 	
 	

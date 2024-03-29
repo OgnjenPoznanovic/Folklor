@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.eproject.folklor.markovic.entity.Ansambl;
 import com.eproject.folklor.markovic.entity.Clanarina;
 import com.eproject.folklor.markovic.repository.ClanarinaRepository;
 
@@ -22,7 +23,22 @@ public class ClanarinaService {
 		
 		clanarinaRepository.save(theClanarina);
 	}
-
+	
+	public Clanarina findClanarina(String mesec, String godina, int cena) {
+		
+		Optional<Clanarina> result = clanarinaRepository.findClanarina(mesec, godina, cena);
+				
+		Clanarina theClanarina = null;
+		
+		if(result.isPresent()) {
+			theClanarina = result.get();
+		}
+		else {
+			throw new RuntimeException("Nema clanarine");
+		}
+	
+		return theClanarina;
+	}
 	
 	public List<Clanarina> findAll(){
 		return clanarinaRepository.findAll();

@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,13 +29,9 @@ public class Ansambl {
 	@Column(name="naziv")
 	private String naziv;
 	
+
 	
-	@OneToMany(mappedBy="ansambl_id", 
-			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH})
-	private List<Clanarina> clanarine;
-	
-	@OneToMany(mappedBy="ansambl_id", 
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="ansambl_id", 
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH})
 	private List<Proba> probe;
@@ -76,16 +73,6 @@ public class Ansambl {
 	}
 
 
-	public List<Clanarina> getClanarine() {
-		return clanarine;
-	}
-
-
-	public void setClanarine(List<Clanarina> clanarine) {
-		this.clanarine = clanarine;
-	}
-
-
 	public List<Proba> getProbe() {
 		return probe;
 	}
@@ -95,18 +82,7 @@ public class Ansambl {
 		this.probe = probe;
 	}
 	
-	
-	public void addClanarinu(Clanarina tempClanarina) {
-		
-		if(clanarine == null) {
-			clanarine = new ArrayList<>();
-		}
-		
-		clanarine.add(tempClanarina);
-		
-		tempClanarina.setAnsambl_id(this);
-	}
-	
+
 	public void addProbe(Proba tempProba) {
 		
 		if(probe == null) {
@@ -132,6 +108,9 @@ public class Ansambl {
         clanovi.add(tempClan);
     }
 	
-	
+	public void removeClan(Clan tempClan) {
+		
+		clanovi.remove(tempClan);
+	}
 	
 }

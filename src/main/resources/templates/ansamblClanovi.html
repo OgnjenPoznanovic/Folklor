@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ансамбли - Чланови</title>
+    <style>
+    
+     body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+    
+            a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        
+        .menu {
+            background-color: #ffe600; 
+            overflow: hidden;
+        }
+
+        .menu a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .menu a:hover {
+            background-color: #333;
+            color: #ffe600; 
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: #333;
+            padding: 14px 16px;  
+            background-color: #ffe600; 
+            font-family: inherit;
+           
+            cursor: pointer;
+        }
+
+        .menu a:hover, .dropdown:hover .dropbtn {
+            background-color: #333;
+            color: #ffe600; 
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f8f9fa;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #333;
+        }
+
+        .menu:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+                h1 {
+            margin: 0;
+            padding: 10px;
+            color: #333;
+            text-align: center;
+        }
+        
+        #addButton {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 50px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            
+            margin-left: 50px;
+            margin-rigth: 50px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            color: black;
+        }
+        
+        
+       
+		.search-button {
+		  background-color: #007bff; 
+		  color: #fff; 
+		  border: none; 
+		  padding: 7px 15px;
+		  border-radius: 5px; 
+		  cursor: pointer; 
+		  font-size: 16px; 
+		}
+
+		
+		.search-button:hover {
+		  background-color: #0056b3;
+		}
+		
+		
+		.search-button:active {
+		  background-color: #003d80;
+		}
+		   
+
+
+
+
+
+
+
+        
+     </style>
+     
+     <script>
+		  window.onload = function() {
+		    
+		    var inputField1 = document.getElementById('username');
+		    var inputField2 = document.getElementById('ime');
+		    var inputField3 = document.getElementById('prezime');
+		    var selectElement = document.getElementById('ansambl');		    
+		    
+		    inputField1.value = '';
+		    inputField2.value = '';
+		    inputField3.value = '';
+		    selectElement.selectedIndex = 0;
+		  };
+</script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    
+</head>
+<body>
+	
+
+	
+	<div class="menu">
+        <h1> КУД Светозар Марковић </h1>
+
+        
+        <a th:href="@{home}">Почетна</a>   
+        
+        <a th:href="@{showClanToAnsambl}">Додај члана</a>
+        
+        <a th:href="@{clanAnsamblDeleteForm}">Избаци члана</a> 
+
+        
+    </div>
+  
+	
+	<form  action=# th:action="@{filterClanoveOfAnsambla}" th:object="${ansamblClanoviDTO}" method="POST" style="margin-top:20px; margin-bottom:50px; margin-left:50px;">
+		
+		
+			<label>Корисничко име: </label>
+			<input id="username" type="text" th:field="*{korisnicko_ime}" size="15" style="margin-right:15px;">
+			
+			<label>Име: </label>
+			<input id="ime" type="text" th:field="*{ime}"  size="15" style="margin-right:15px;">
+			
+			<label>Презиме: </label>
+			<input id="prezime" type="text" th:field="*{prezime}"  size="15" style="margin-right:15px;">
+			
+			<label>Ansambl:</label>
+	       	 <select id="ansambl" style="margin-right: 30px;" th:field="*{naziv}">
+	            <option th:each="ansambl : ${ansamblLista}" th:value="${ansambl.naziv}" th:text="${ansambl.naziv}"></option>
+	        </select>
+	     	
+			
+			<input class="search-button" type="submit" value="Претрага">
+		
+	</form>
+	
+	
+	<table class="table table-bordered table-striped">
+		<thead >
+			<tr>
+				<th>Корисничко име</th>
+				<th>Име</th>
+				<th>Презиме</th>
+				<th>Ansambl/i</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="tempClan : ${clan}">
+				<td th:text="${tempClan.username}"/>
+				<td th:text="${tempClan.ime}"/>
+				<td th:text="${tempClan.prezime}"/>
+			 	<td>
+                    <ul>
+                        <li th:each="object : ${tempClan.ansambli}" th:text="${object.naziv}"></li>
+                    </ul>
+                </td>
+			
+				
+															
+			</tr>
+		</tbody>
+	</table>
+
+	
+	
+</body>
+</html>

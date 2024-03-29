@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Почетна страница</title>
-    
+    <title>Ансамбли - Пробе</title>
     <style>
-        body {
+    
+     body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f3f3f3;
         }
-
-        a {
+    
+            a {
             text-decoration: none;
             color: #333;
         }
@@ -48,10 +48,10 @@
             border: none;
             outline: none;
             color: #333;
-            padding: 14px 16px;
+            padding: 14px 16px;  
             background-color: #ffe600; 
             font-family: inherit;
-            margin: 0;
+           
             cursor: pointer;
         }
 
@@ -91,71 +91,97 @@
             display: table;
             clear: both;
         }
-
         
-        .logout-btn {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background-color: red; /* Brighter yellow */
-            color: #333;
-            border: none;
-            padding: 8px 12px; /* Smaller size */
-            font-size: 14px; /* Smaller font size */
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-       
-
-        
-        h1 {
+                h1 {
             margin: 0;
             padding: 10px;
             color: #333;
             text-align: center;
         }
-    </style>
+        
+        #addButton {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 50px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            
+            margin-left: 50px;
+            margin-rigth: 50px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            color: black;
+        }
+        
+     </style>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     
 </head>
 <body>
-
-    <script>
-        window.history.pushState({}, "", "/home");
-    </script>
-
-    
-    <div class="menu">
+	
+	
+	<div class="menu">
         <h1> КУД Светозар Марковић </h1>
 
-        <a th:href="@{clanarina/list}">Чланарине</a>
         
-        <a th:href="@{proba/list}">Пробе</a>
-        
-        <div class="dropdown">
-            <button class="dropbtn">Ансамбли</button>
-            <div class="dropdown-content">
-                <a th:href="@{ansambl/list}">Регистрација</a>
-                <a th:href="@{ansambl/probe}">Пробе</a>
-                <a th:href="@{ansambl/clanovi}">Чланови</a>
-            </div>
-        </div>
-        
-        <a th:href="@{koreografija/list}">Кореографије</a>
+        <a th:href="@{home}">Почетна</a>    
 
-        <div class="dropdown">
-            <button class="dropbtn">Чланови</button>
-            <div class="dropdown-content">
-                <a th:href="@{clanovi/registration}">Регистрација</a>
-                <a th:href="@{uloge/role}">Ауторизација</a>
-                <a th:href="@{clanovi/list}">Преглед</a>
-            </div>
-        </div>
         
-        
-        <form action="#" th:action="@{/logout}" method="POST">
-            <input type="submit" value="Одјава" class="logout-btn" />
-        </form>
     </div>
+	
+	<form  action=# th:action="@{probeAnsambla}" th:object="${tempAnsamblDTO}" method="GET" style="margin-top:20px; margin-bottom:50px; margin-left:50px;">
+			
+			<label>Ansambl:</label>
+	       	 <select th:field="*{naziv}">
+	            <option th:each="ansambl : ${ansamblLista}" th:value="${ansambl.naziv}" th:text="${ansambl.naziv}"></option>
+	        </select>
+	     	
+			
+			<input style="margin-left: 30px;" class="search-button" type="submit" value="Претрага">
+		
+	</form>
+	 
+	
+	<table  style="margin-top:50px;"class="table table-bordered table-striped">
+		<thead >
+			<tr>
+				 <th>Ансамбл</th> 
+				<th>Дан</th>
+				<th>Месец</th>
+				<th>Година</th>
+				<th>Почетак</th>
+				
+				
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="tempProba : ${probe}">
+				 <td th:text="${tempProba.ansambl_id.getNaziv()}"/> 
+				<td th:text="${tempProba.dan}"/>
+				<td th:text="${tempProba.mesec}"/>
+				<td th:text="${tempProba.godina}"/>
+				<td th:text="${tempProba.pocetak}"/>	
+														
+			</tr>
+		</tbody>
+	</table>
+   
+
+</form>
 </body>
 </html>

@@ -29,6 +29,22 @@ public class AnsamblService {
 		return ansamblRepository.findAll();
 	}
 	
+	public Ansambl findByNaziv(String naziv) {
+		
+		Optional<Ansambl> result = ansamblRepository.findByNaziv(naziv);
+				
+		Ansambl theAnsambl = null;
+		
+		if(result.isPresent()) {
+			theAnsambl = result.get();
+		}
+		else {
+			throw new RuntimeException("Nema ansambla");
+		}
+	
+		return theAnsambl;
+	}
+	
 	public Ansambl findById(int theId) {
 		
 		Optional<Ansambl> result = ansamblRepository.findById(theId);

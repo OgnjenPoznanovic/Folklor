@@ -38,6 +38,8 @@ public class Proba {
 	@Column(name="prisustvo")
 	private int prisustvo;
 	
+	@Column(name="pocetak")
+	private String pocetak;
 	
 	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.DETACH, CascadeType.REFRESH})
@@ -56,12 +58,13 @@ public class Proba {
 		
 	}
 
-	public Proba(String dan, String mesec, String godina, int prisustvo) {
+	public Proba(String dan, String mesec, String godina, int prisustvo, String pocetak) {
 		
 		this.dan = dan;
 		this.mesec = mesec;
 		this.godina = godina;
 		this.prisustvo = prisustvo;
+		this.pocetak = pocetak;
 	}
 
 	public int getProba_id() {
@@ -95,6 +98,15 @@ public class Proba {
 	public void setGodina(String godina) {
 		this.godina = godina;
 	}
+	
+
+	public String getPocetak() {
+		return pocetak;
+	}
+
+	public void setPocetak(String pocetak) {
+		this.pocetak = pocetak;
+	}
 
 	public int getPrisustvo() {
 		return prisustvo;
@@ -126,5 +138,21 @@ public class Proba {
 
         clanovi.add(tempClan);
     }
+	
+	public void deleteClana(Clan tempClan) {
+
+        clanovi.remove(tempClan);
+    }
+
+	public List<Clan> getClanovi() {
+		return clanovi;
+	}
+
+	public void setClanovi(List<Clan> clanovi) {
+		this.clanovi = clanovi;
+	}
+	
+	
+	
 	
 }
