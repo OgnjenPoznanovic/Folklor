@@ -58,7 +58,7 @@ public class ClanController {
 	@GetMapping("/list")
 	public String showAll(Model theModel) {
 		
-		List<Clan> theClanovi = clanService.findAll();
+		List<Clan> theClanovi = clanService.findAllActive();
 		
 		theModel.addAttribute("clanovi", theClanovi);
 		
@@ -123,10 +123,14 @@ public class ClanController {
 		
 		
 		if(theUloga == null) {
-			clanService.deleteById(theId);
+			theClan.setEnabled(false);
+			clanService.update(theClan);
+			//clanService.deleteById(theId);
 		}else {
 			ulogeService.delete(theUloga);
-			clanService.deleteById(theId);
+			theClan.setEnabled(false);
+			clanService.update(theClan);
+			//clanService.deleteById(theId);
 		}
 		
 		

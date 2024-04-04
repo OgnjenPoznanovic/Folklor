@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ансамбли - Чланови</title>
+    
+     <link rel="stylesheet" type="text/css" th:href="@{/showList.css}">
+     <script>
+		  window.onload = function() {
+		    
+		   
+		    var inputField1 = document.getElementById('ime');
+		    var inputField2 = document.getElementById('prezime');
+		      
+		    
+		    inputField1.value = '';
+		    inputField2.value = '';
+		    
+		  };
+</script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    
+</head>
+<body>
+	
+
+	
+	<div class="menu">
+        <h1> КУД Светозар Марковић </h1>
+
+        
+        <a th:href="@{home}">Почетна</a>   
+
+        
+    </div>
+  
+	
+	<form  action=# th:action="@{showAllClanarine}" th:object="${clanProbaDTO}" method="POST" style="margin-top:20px; margin-bottom:50px; margin-left:50px;">
+				
+			<label>Име: </label>
+			<input id="ime" type="text" th:field="*{ime}"  size="15" style="margin-right:15px;">
+			
+			<label>Презиме: </label>
+			<input id="prezime" type="text" th:field="*{prezime}"  size="15" style="margin-right:15px;">
+	     	
+			
+			<input class="search-button" type="submit" value="Претрага">
+		
+	</form>
+	
+	
+	<div class="container">
+    	<p class="bold"><span th:text="${clan.ime}"></span> <span th:text="${clan.prezime}"></span></p>
+	</div>
+	
+	<table style="width:90vw;"class="table table-bordered table-striped">
+		<thead >
+			<tr>
+				<th>Месец</th>
+				<th>Година</th>
+				<th>Цена</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="tempClanarina : ${clanarine}">
+				<td th:text="${tempClanarina.mesec}"/>
+				<td th:text="${tempClanarina.godina}"/>
+				<td th:text="${tempClanarina.cena}"/>											
+			</tr>
+		</tbody>
+	</table>
+
+	
+	
+</body>
+</html>

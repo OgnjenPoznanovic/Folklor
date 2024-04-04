@@ -76,6 +76,8 @@ public class ProbaController {
 		
 		List<Proba> theProba = theClan.getProbe();
 		
+		
+		
 		theModel.addAttribute("clan", theClan);
 		theModel.addAttribute("probe", theProba);
 		

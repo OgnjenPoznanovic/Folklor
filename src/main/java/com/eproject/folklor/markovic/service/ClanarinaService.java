@@ -1,11 +1,13 @@
 package com.eproject.folklor.markovic.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.eproject.folklor.markovic.entity.Ansambl;
 import com.eproject.folklor.markovic.entity.Clanarina;
 import com.eproject.folklor.markovic.repository.ClanarinaRepository;
 
@@ -60,9 +62,34 @@ public class ClanarinaService {
 		return theClanarina;
 	}
 	
+	public List<Clanarina> findByMesecAndGodina(String mesec, String godina) {
+		List<Clanarina> result = clanarinaRepository.findByMesecAndGodina(mesec, godina);
+				
+		return result;
+	}
+	
 	public void deleteById(int theId) {
 		clanarinaRepository.deleteById(theId);
 	}
+	
+	public List<Integer> removeDuplicates(List<Integer> listWithDuplicates) {
+        
+        Set<Integer> set = new HashSet<>();
+
+        // Create a new list to hold elements without duplicates
+        List<Integer> listWithoutDuplicates = new ArrayList<>();
+
+        // Iterate through the original list
+        for (Integer element : listWithDuplicates) {
+            // If the set doesn't contain the element, add it to both set and list
+            if (!set.contains(element)) {
+                set.add(element);
+                listWithoutDuplicates.add(element);
+            }
+        }
+
+        return listWithoutDuplicates;
+    }
 	
 	
 }

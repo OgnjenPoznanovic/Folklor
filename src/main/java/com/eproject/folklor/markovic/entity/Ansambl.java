@@ -36,6 +36,11 @@ public class Ansambl {
 					CascadeType.DETACH, CascadeType.REFRESH})
 	private List<Proba> probe;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="ansambl_id", 
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH})
+	private List<Proba> clanarine;
+	
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.DETACH, CascadeType.REFRESH})

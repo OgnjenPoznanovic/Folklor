@@ -5,117 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Почетна страница</title>
     
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f3f3f3;
-        }
-
-        a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        
-        .menu {
-            background-color: #ffe600; 
-            overflow: hidden;
-        }
-
-        .menu a {
-            float: left;
-            display: block;
-            color: #333;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        .menu a:hover {
-            background-color: #333;
-            color: #ffe600; 
-        }
-
-        .dropdown {
-            float: left;
-            overflow: hidden;
-        }
-
-        .dropdown .dropbtn {
-            font-size: 16px;
-            border: none;
-            outline: none;
-            color: #333;
-            padding: 14px 16px;
-            background-color: #ffe600; 
-            font-family: inherit;
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .menu a:hover, .dropdown:hover .dropbtn {
-            background-color: #333;
-            color: #ffe600; 
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f8f9fa;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-content a {
-            float: none;
-            color: #333;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #333;
-        }
-
-        .menu:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        
-        .logout-btn {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background-color: red; /* Brighter yellow */
-            color: #333;
-            border: none;
-            padding: 8px 12px; /* Smaller size */
-            font-size: 14px; /* Smaller font size */
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-       
-
-        
-        h1 {
-            margin: 0;
-            padding: 10px;
-            color: #333;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/showList.css}">
     
 </head>
 <body>
@@ -131,6 +21,9 @@
         <a th:href="@{clanarina/list}">Чланарине</a>
         
         <a th:href="@{proba/list}">Пробе</a>
+        
+        
+   
         
         <div class="dropdown">
             <button class="dropbtn">Ансамбли</button>

@@ -48,6 +48,14 @@ public class ClanService {
 		return clanRepository.findAll();
 	}
 	
+	public List<Clan> findAllActive(){
+		
+		List<Clan> clanovi = clanRepository.findAllActive();
+		
+		return clanovi;
+	}
+	
+	
 	public Clan findByUsername(String korisnickoIme) {
 		
 		Optional<Clan> result  = clanRepository.findByUsername(korisnickoIme);
@@ -238,11 +246,28 @@ public List<Clan> findByProbaId(Integer theId){
 			
 			theClanovi = result;
 		}
-		
-		
-		
+			
 		return theClanovi;
 	}
+
+
+public List<Clan> findByClanarinaId(Integer theId){
+	
+	List<Clan> result = clanRepository.findByClanarinaId(theId);
+	
+	List<Clan> theClanovi = null;
+	
+	if(result.isEmpty()) {
+		
+		return theClanovi;
+		
+	}else {
+		
+		theClanovi = result;
+	}
+		
+	return theClanovi;
+}
 	
 
 	public List<Clan> clanoviInOneList(List<Clan> allClanoviAnsambla, List<Clan> prisutniClanovi) {
@@ -267,4 +292,41 @@ public List<Clan> findByProbaId(Integer theId){
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

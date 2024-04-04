@@ -81,6 +81,11 @@ a:hover {
      	<div class="first-column">
      	<input type="hidden" th:field="*{clanarina_id}" />
      	
+     	<label>Ansambl:</label>
+	       	 <select id="ansambl" style="margin-right: 30px;" th:field="*{naziv}">
+	            <option th:each="ansambl : ${ansamblLista}" th:value="${ansambl.naziv}" th:text="${ansambl.naziv}"></option>
+	     </select>
+     	
         <label >Месец:</label>
         <input type="text" th:field="*{mesec}" required>
         
@@ -89,6 +94,8 @@ a:hover {
 
         <label >Цена:</label>
         <input type="number" th:field="*{cena}" >
+        
+        
           
          <input type="submit" value="Додај">
          </div> 

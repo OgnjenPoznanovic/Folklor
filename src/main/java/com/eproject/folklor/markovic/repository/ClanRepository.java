@@ -31,12 +31,19 @@ public interface ClanRepository extends JpaRepository<Clan, Integer>{
 	@Query(value = "SELECT * FROM igrac WHERE ime =:ime AND prezime =:prezime", nativeQuery = true)
 	public Clan findOneByImeAndPrezime(@Param("ime") String ime, @Param("prezime") String prezime);
 	
-	@Query(value="SELECT c.* FROM igrac c JOIN pripada p ON c.igrac_id = p.igrac_id JOIN ansambl a ON p.ansambl_id = a.ansambl_id WHERE a.ansambl_id =:ansambl_id", nativeQuery = true)
+	@Query(value="SELECT c.* FROM igrac c JOIN pripada p ON c.igrac_id = p.igrac_id JOIN ansambl a ON p.ansambl_id = a.ansambl_id WHERE a.ansambl_id =:ansambl_id AND c.enabled = true", nativeQuery = true)
 	public List<Clan> findByAnsamblId(@Param("ansambl_id") Integer ansambl_id);
 	
 	
-	@Query(value="SELECT c.* FROM igrac c JOIN prisustvo p ON c.igrac_id = p.igrac_id JOIN proba pr ON p.proba_id = pr.proba_id WHERE pr.proba_id =:proba_id", nativeQuery = true)
+	@Query(value="SELECT c.* FROM igrac c JOIN prisustvo p ON c.igrac_id = p.igrac_id JOIN proba pr ON p.proba_id = pr.proba_id WHERE pr.proba_id =:proba_id AND c.enabled = true", nativeQuery = true)
 	public List<Clan> findByProbaId(@Param("proba_id") Integer proba_id);
+	
+	@Query(value="SELECT c.* FROM igrac c JOIN placene_obaveze po ON c.igrac_id = po.igrac_id JOIN clanarina cl ON po.clanarina_id = cl.clanarina_id WHERE cl.clanarina_id =:clanarina_id AND c.enabled = true", nativeQuery = true)
+	public List<Clan> findByClanarinaId(@Param("clanarina_id") Integer clanarina_id);
+	
+	
+	@Query(value="SELECT * FROM igrac WHERE enabled = true", nativeQuery = true)
+	public List<Clan> findAllActive();
 	
 	
 	

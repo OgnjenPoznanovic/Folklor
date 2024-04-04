@@ -293,6 +293,14 @@ public class Clan {
 	public void setProbe(List<Proba> probe) {
 		this.probe = probe;
 	}
+
+	public List<Clanarina> getClanarina() {
+		return clanarina;
+	}
+
+	public void setClanarina(List<Clanarina> clanarina) {
+		this.clanarina = clanarina;
+	}
 	
 	 
 	
