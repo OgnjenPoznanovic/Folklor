@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+    
+</head>
+<body>
+
+<div class="form-container">
+	  <form action=# th:action="@{/proba/save}" th:object="${proba}" method="POST">
+	     
+	     	
+	     	<input type="hidden" th:field="*{proba_id}" />
+	     	
+	        <label >Дан:</label>
+	        <input type="text" th:field="*{dan}" required>
+	        
+	        <label >Месец:</label>
+	        <input type="text" th:field="*{mesec}" >
+	        
+	        <label >Година:</label>
+	        <input type="text" th:field="*{godina}" >
+	        
+	        
+	        <label >Почетак:</label>
+	        <input type="text" th:field="*{pocetak}" >
+	
+	        
+	          
+	         <input type="submit" value="Додај">
+	             
+	</form>
+</div>
+
+</body>
+</html>

@@ -100,13 +100,14 @@ public class ProbaController {
 	public String showAnsamblProbeDTOForm(Model theModel) {
 		
 		List<Ansambl> ansamblList = ansamblService.findAll(); 
+		ansamblList.remove(2);
 		
 		AnsamblProbaDTO theAnsamblProbaDTO = new AnsamblProbaDTO();
 		
 		theModel.addAttribute("ansamblProbaDТО", theAnsamblProbaDTO);
 		theModel.addAttribute("ansamblLista", ansamblList);
 		
-		return "ansamblProbeForm.html";
+		return "ansamblProbaForm.html";
 	}
 	
 	
@@ -147,9 +148,9 @@ public class ProbaController {
 		Proba theProba = probaService.findById(theId);
 		
 		
-		theModel.addAttribute("clanarina", theProba);
+		theModel.addAttribute("proba", theProba);
 		
-		return "probaForm.html";
+		return "probeForm.html";
 	}
 	
 	@GetMapping("/showDeleteClanProbaForm")

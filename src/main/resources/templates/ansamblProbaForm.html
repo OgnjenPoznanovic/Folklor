@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чланаринa</title>
+    <title></title>
     
-   <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
-
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
     
 </head>
 <body>
- 
 
 <div class="form-container">
-	<form action=# th:action="@{/clanarina/save}" th:object="${clanarina}" method="POST">
+	  <form action=# th:action="@{/proba/save}" th:object="${ansamblProbaDТО}" method="POST">
 	     
-	     	<input type="hidden" th:field="*{clanarina_id}" />
-	  
 	     	<label>Ansambl:</label>
 		       	 <select id="ansambl" style="margin-right: 30px;" th:field="*{naziv}">
 		            <option th:each="ansambl : ${ansamblLista}" th:value="${ansambl.naziv}" th:text="${ansambl.naziv}"></option>
 		     </select>
 	     	
-	     	
+	        <label >Дан:</label>
+	        <input type="text" th:field="*{dan}" required>
+	        
 	        <label >Месец:</label>
-	        <input type="text" th:field="*{mesec}" required>
+	        <input type="text" th:field="*{mesec}" >
 	        
 	        <label >Година:</label>
 	        <input type="text" th:field="*{godina}" >
+	        
+	        
+	        <label >Почетак:</label>
+	        <input type="text" th:field="*{pocetak}" >
 	
-	        <label >Цена:</label>
-	        <input type="number" th:field="*{cena}" >
-	        
-	        
 	          
 	         <input type="submit" value="Додај">
 	        
+	       
 	</form>
 </div>
 

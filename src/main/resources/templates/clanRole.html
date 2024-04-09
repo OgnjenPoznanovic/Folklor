@@ -4,66 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Улоге</title>
-    <style>
-        body {
-            background-color: black;
-            color: yellow;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
-
-        h2 {
-            color: yellow;
-        }
-
-        form {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: yellow;
-            color: black;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: black;
-            color: yellow;
-        }
-    </style>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+    
 </head>
 <body>
 
+<di>
 <h2>Додељивање улоге</h2>
+</div>
 
-<form action=# th:action="@{/uloge/save}" th:object="${uloge}" method="POST">
-    <label >Корисничко име:</label>
-    <input type="text" th:field="*{username}" maxlength="128" required>
-
-
-    <label>Улога</label>
-    <input type="text" th:field="*{uloga}" maxlength="50" required>
-
-
-    <input type="submit" value="Додели улогу">
-</form>
+<div class="form-container">
+	<form action=# th:action="@{/uloge/save}" th:object="${uloge}" method="POST">
+	    <label >Корисничко име:</label>
+	    <input type="text" th:field="*{username}" maxlength="128" required>
+	
+	
+	    <label>Улога</label>
+	    <input type="text" th:field="*{uloga}" maxlength="50" required>
+	
+	
+	    <input type="submit" value="Додели улогу">
+	</form>
+</div>
 
 </body>
 </html>

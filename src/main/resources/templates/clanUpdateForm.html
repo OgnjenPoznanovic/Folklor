@@ -4,134 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрација члана</title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+    
     <style>
-        body {
-            background-color: black;
-            color: yellow;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
-
-        h2 {
-            color: yellow;
-        }
-
-        form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            text-align: left;
-        }
-
-        .first-column,
-        .second-column {
-            grid-column: span 1;
-        }
-		
-		
-a {
-    text-decoration: none;
-    color: yellow; 
-}
-
-
-a:visited {
-    color: yellow; 
-}
-
-
-a:hover {
-    color: white; 
-}
-
-        
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: yellow;
-            color: black;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: black;
-            color: yellow;
-        }
-    </style>
+     	  .form-container {
+			    background-color: #ffffff;
+			    padding: 20px;
+			    border-radius: 8px;
+			    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+			    width: 70vw;
+			    height: 30vw;
+			    
+ 			 }
+ 			 form {
+	            display: grid;
+	            grid-template-columns: repeat(2, 1fr);
+	            gap: 15px;
+	            text-align: left;
+        	}
+     	      .first-column,
+        	.second-column {
+            	grid-column: span 1;
+        	}
+    </style> 
 </head>
 <body>
 
-<h2>Регистрација члана</h2>
-
-
-<form  action=# th:action="@{/clanovi/update}" th:object="${clan}" method="POST">
-     
-     	<div class="first-column">
-     	
-     	<input type="hidden" th:field="*{clan_id}" />
-     	
-        <label >Корисничко име:</label>
-        <input type="text" th:field="*{username}" required>
-        
-        <label >Име:</label>
-        <input type="text" th:field="*{ime}" >
-
-        <label >Презиме:</label>
-        <input type="text" th:field="*{prezime}" >
-        
-        <label >Година рођења:</label>
-        <input type="text" th:field="*{godiste}" >
-        
-        <label >dozvola:</label>
-        <input type="checkbox" th:field="*{enabled}" >
-         </div>
-         
-         <div class="second-column"> 
-        <label>Пол:</label>
-        <select th:field="*{pol}" >
-            <option value="m">Momak</option>
-            <option value="z">Devojka</option>           
-        </select>
-        
-        <label>Година уписа:</label>
-        <input th:field="*{godina_upisa}" >
-
-        <label >E-адреса:</label>
-        <input type="email" th:field="*{email}" >
-
-        <label >Телефон:</label>
-        <input type="text" th:field="*{telefon}" >
-
-        <label>Занимање:</label>
-        <select th:field="*{zanimanje}" >
-        	<option value="вртић">вртић</option>
-            <option value="школа">школа</option>
-            <option value="студент">студент</option>
-            <option value="запослен">запослен</option>
-            <option value="незапослен">незапослен</option>           
-        </select>
-         
-         </div> 
-    <input type="submit" value="Региструј">
-    
-  
-   
-
-</form>
-
+<spa>
+	<h1>Регистрација члана</h1>
+</span>
+<div class="form-container">
+	<form  action=# th:action="@{/clanovi/update}" th:object="${clan}" method="POST">
+	     
+	     	<div class="first-column">
+	        <label >Корисничко име:</label>
+	        <input type="text" th:field="*{username}" required>
+			
+			<br><br>
+			
+		
+	        
+	        <label >Име:</label>
+	        <input type="text" th:field="*{ime}" >
+			
+			<br><br>
+	        
+	        <label >Презиме:</label>
+	        <input type="text" th:field="*{prezime}" >
+	        
+	        <br><br>
+	        
+	        <label >Година рођења:</label>
+	        <input type="text" th:field="*{godiste}" >
+	        
+	        <br><br>
+	        
+	        <label >dozvola:</label>
+	        <input type="checkbox" th:field="*{enabled}" >
+	        
+	        <br><br>	        	       
+	       
+	       </div>
+	         
+	        <div class="second-column">
+	        <label>Пол:</label>
+	        <select th:field="*{pol}" >
+	            <option value="m">Momak</option>
+	            <option value="z">Devojka</option>           
+	        </select>
+	        	        	        
+	        <br><br>
+	        
+	        <label>Година уписа:</label>
+	        <input th:field="*{godina_upisa}" >
+		        
+	        <br><br>
+	        
+	        <label >E-адреса:</label>
+	        <input type="email" th:field="*{email}" >
+		        
+	        <br><br>
+	        
+	        <label >Телефон:</label>
+	        <input type="text" th:field="*{telefon}" >
+		        
+	        <br><br>
+	        
+	        <label>Занимање:</label>
+	        <select th:field="*{zanimanje}" >
+	        	<option value="вртић">вртић</option>
+	            <option value="школа">школа</option>
+	            <option value="студент">студент</option>
+	            <option value="запослен">запослен</option>
+	            <option value="незапослен">незапослен</option>           
+	        </select>
+	         
+	    </div>
+	    
+	    
+	    <input type="submit" value="Региструј">
+	    
+	    
+	  
+	</form>
+</div>
     
       <br><br>
       
