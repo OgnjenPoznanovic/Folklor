@@ -11,8 +11,33 @@
 </head>
 <body>
  
+<div class="form-container" th:if="${updateForm}">
+	<form action=# th:action="@{/clanarina/save}" th:object="${clanarina}" method="POST">
+	     
+	     	<input type="hidden" th:field="*{clanarina_id}" />
+	  
+	     	<label >Месец:</label>
+	        <input type="text" th:field="*{naziv}" required>
+	     	
+	     	
+	        <label >Месец:</label>
+	        <input type="text" th:field="*{mesec}" required>
+	        
+	        <label >Година:</label>
+	        <input type="text" th:field="*{godina}" >
+	
+	        <label >Цена:</label>
+	        <input type="number" th:field="*{cena}" >
+	        
+	        
+	          
+	         <input type="submit" value="Додај">
+	        
+	</form>
+</div>
 
-<div class="form-container">
+
+<div class="form-container" th:if="${addForm}">
 	<form action=# th:action="@{/clanarina/save}" th:object="${clanarina}" method="POST">
 	     
 	     	<input type="hidden" th:field="*{clanarina_id}" />

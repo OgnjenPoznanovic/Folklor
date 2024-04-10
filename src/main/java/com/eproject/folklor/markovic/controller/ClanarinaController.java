@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.eproject.folklor.markovic.entity.Ansambl;
 import com.eproject.folklor.markovic.entity.Clan;
 import com.eproject.folklor.markovic.entity.Clanarina;
-import com.eproject.folklor.markovic.entity.Proba;
 import com.eproject.folklor.markovic.service.AnsamblService;
 import com.eproject.folklor.markovic.service.ClanService;
 import com.eproject.folklor.markovic.service.ClanarinaService;
@@ -22,7 +21,7 @@ import com.eproject.folklor.markovic.service.ClanarinaService;
 import entity_dto.AnsamblClanarinaDTO;
 import entity_dto.ClanClanarinaForm;
 import entity_dto.ClanProbaDTO;
-import entity_dto.ClanProbaForm;
+
 
 @Controller
 @RequestMapping("/clanarina")
@@ -72,7 +71,7 @@ public class ClanarinaController {
 		
 		Clan theClan = clanService.findOneByImeAndPrezime(tempIme, tempPrezime);
 		List<Clanarina> clanarine = theClan.getClanarina();
-		List<Clanarina> theclanarine = new ArrayList<>();
+		//List<Clanarina> theclanarine = new ArrayList<>();
 		
 		
 		theModel.addAttribute("clan", theClan);
@@ -102,7 +101,31 @@ public class ClanarinaController {
 		
 		AnsamblClanarinaDTO theAnsamblClanarinaDTO = new AnsamblClanarinaDTO();
 				
+		theModel.addAttribute("addForm", true);
+		theModel.addAttribute("updateForm", false);
 		theModel.addAttribute("ansamblLista", ansamblList);
+		theModel.addAttribute("clanarina", theAnsamblClanarinaDTO);
+		
+		return "clanarinaForm.html";
+	}
+	
+	@GetMapping("/showFormForUpdate")
+	public String showForm(@RequestParam("clanarina_id")int theId, Model theModel) {
+		
+		
+		Clanarina theClanarina = clanarinaService.findById(theId);
+		Ansambl theAnsambl = theClanarina.getAnsambl_id();
+		
+		AnsamblClanarinaDTO theAnsamblClanarinaDTO = new AnsamblClanarinaDTO();
+		theAnsamblClanarinaDTO.setClanarina_id(theClanarina.getClanarina_id());
+		theAnsamblClanarinaDTO.setCena(theClanarina.getCena());
+		theAnsamblClanarinaDTO.setGodina(theClanarina.getGodina());
+		theAnsamblClanarinaDTO.setMesec(theClanarina.getMesec());
+		theAnsamblClanarinaDTO.setNaziv(theAnsambl.getNaziv());
+		
+		
+		theModel.addAttribute("addForm", false);
+		theModel.addAttribute("updateForm", true);
 		theModel.addAttribute("clanarina", theAnsamblClanarinaDTO);
 		
 		return "clanarinaForm.html";
@@ -244,7 +267,7 @@ public class ClanarinaController {
 		
 		int end = clanovi.size()-1;
 		int i=0;
-		int k=0;
+		//int k=0;
 		for(Clan test : clanovi) {
 			if(i<end) {
 				String tempIme = test.getIme();
@@ -280,7 +303,7 @@ public class ClanarinaController {
 						
 					}
 					theClanarina.deleteClana(theClan);
-					k++;
+					//k++;
 				}
 			}
 			
@@ -423,22 +446,29 @@ public class ClanarinaController {
 	}
 	
 	
-	@GetMapping("/showFormForUpdate")
-	public String showForm(@RequestParam("clanarina_id")int theId, Model theModel) {
-		
-		Clanarina theClanarina = clanarinaService.findById(theId);
-		
-		
-		theModel.addAttribute("clanarina", theClanarina);
-		
-		return "clanarinaForm.html";
-	}
+	
 	
 	@PostMapping("/save")
 	public String saveClanarina(@ModelAttribute("clanarina") AnsamblClanarinaDTO theAnsamblClanarinaDTO) {
 		
 		Clanarina theClanarina = new Clanarina();
 		
+		if(theAnsamblClanarinaDTO.getClanarina_id() != 0) {
+		
+			theClanarina = clanarinaService.findById(theAnsamblClanarinaDTO.getClanarina_id());
+			
+			theClanarina.setCena(theAnsamblClanarinaDTO.getCena());
+			theClanarina.setGodina(theAnsamblClanarinaDTO.getGodina());
+			theClanarina.setMesec(theAnsamblClanarinaDTO.getMesec());
+			
+			Ansambl theAnsambl = ansamblService.findByNaziv(theAnsamblClanarinaDTO.getNaziv());
+			
+			theClanarina.setAnsambl_id(theAnsambl);
+			
+			clanarinaService.saveClanarina(theClanarina);
+			
+			return "redirect:/clanarina/list";
+		}
 		theClanarina.setCena(theAnsamblClanarinaDTO.getCena());
 		theClanarina.setGodina(theAnsamblClanarinaDTO.getGodina());
 		theClanarina.setMesec(theAnsamblClanarinaDTO.getMesec());

@@ -76,12 +76,12 @@ public class ClanarinaService {
         
         Set<Integer> set = new HashSet<>();
 
-        // Create a new list to hold elements without duplicates
+        
         List<Integer> listWithoutDuplicates = new ArrayList<>();
 
-        // Iterate through the original list
+        
         for (Integer element : listWithDuplicates) {
-            // If the set doesn't contain the element, add it to both set and list
+            
             if (!set.contains(element)) {
                 set.add(element);
                 listWithoutDuplicates.add(element);
