@@ -2,6 +2,8 @@ package entity_dto;
 
 public class AnsamblProbaDTO {
 
+	private int proba_id;
+	
 	private String naziv;
 	
 	private String dan;
@@ -19,14 +21,31 @@ public class AnsamblProbaDTO {
 		
 	}
 	
-	
 
-	public AnsamblProbaDTO(String naziv, String dan, String mesec, String godina, String pocetak) {
+	public AnsamblProbaDTO(int proba_id, String naziv, String dan, String mesec, String godina, String pocetak) {
+		this.proba_id = proba_id;
 		this.naziv = naziv;
 		this.dan = dan;
 		this.mesec = mesec;
 		this.godina = godina;
 		this.pocetak = pocetak;
+	}
+
+
+
+
+
+
+
+
+	public int getProba_id() {
+		return proba_id;
+	}
+
+
+
+	public void setProba_id(int proba_id) {
+		this.proba_id = proba_id;
 	}
 
 

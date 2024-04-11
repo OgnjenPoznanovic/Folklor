@@ -117,6 +117,7 @@ public class ProbaController {
 		Ansambl theAnsambl = new Ansambl();
 		
 		theAnsambl = ansamblService.findByNaziv(theAnsamblProbaDTO.getNaziv());
+		System.out.println(theAnsambl.getNaziv());
 		Proba theProba = new Proba();
 		theProba.setDan(theAnsamblProbaDTO.getDan());
 		theProba.setMesec(theAnsamblProbaDTO.getMesec());
@@ -147,11 +148,43 @@ public class ProbaController {
 		
 		Proba theProba = probaService.findById(theId);
 		
+		Ansambl theAnsambl = theProba.getAnsambl_id();
 		
-		theModel.addAttribute("proba", theProba);
+		AnsamblProbaDTO theAnsamblProbaDTO = new AnsamblProbaDTO();
+		
+		theAnsamblProbaDTO.setDan(theProba.getDan());
+		theAnsamblProbaDTO.setMesec(theProba.getMesec());
+		theAnsamblProbaDTO.setGodina(theProba.getGodina());
+		theAnsamblProbaDTO.setPocetak(theProba.getPocetak());
+		theAnsamblProbaDTO.setNaziv(theAnsambl.getNaziv());
+		theAnsamblProbaDTO.setProba_id(theId);
+		
+		
+		theModel.addAttribute("proba", theAnsamblProbaDTO);
 		
 		return "probeForm.html";
 	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute("ansamblProbaDТО") AnsamblProbaDTO theAnsamblProbaDTO) {
+		
+		
+		Proba theProba = probaService.findById(theAnsamblProbaDTO.getProba_id());
+		
+		Ansambl theAnsambl = ansamblService.findByNaziv(theAnsamblProbaDTO.getNaziv());
+		theProba.setDan(theAnsamblProbaDTO.getDan());
+		theProba.setMesec(theAnsamblProbaDTO.getMesec());
+		theProba.setGodina(theAnsamblProbaDTO.getGodina());
+		theProba.setPocetak(theAnsamblProbaDTO.getPocetak());
+		theProba.setAnsambl_id(theAnsambl);
+		
+		probaService.saveProba(theProba);
+		
+		
+		
+		return "redirect:/proba/list";
+	}
+	
 	
 	@GetMapping("/showDeleteClanProbaForm")
 	public String showDeleteClanProbaForm(@RequestParam("proba_id") int theId, Model theModel) {

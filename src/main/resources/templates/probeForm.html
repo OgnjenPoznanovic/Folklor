@@ -11,10 +11,12 @@
 <body>
 
 <div class="form-container">
-	  <form action=# th:action="@{/proba/save}" th:object="${proba}" method="POST">
+	  <form action=# th:action="@{/proba/update}" th:object="${proba}" method="POST">
 	     
 	     	
 	     	<input type="hidden" th:field="*{proba_id}" />
+	     	
+	     	<input type="hidden" th:field="*{naziv}" />
 	     	
 	        <label >Дан:</label>
 	        <input type="text" th:field="*{dan}" required>
