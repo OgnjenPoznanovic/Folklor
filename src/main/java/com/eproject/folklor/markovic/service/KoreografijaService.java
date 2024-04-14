@@ -49,5 +49,21 @@ public class KoreografijaService {
 		
 		return theKoreografija;
 	}
+	
+	public Koreografija findByNaziv(String naziv) {
+		Optional<Koreografija> result = koreografijaRepository.findByNaziv(naziv);
+		
+		Koreografija theKoreografija = null;
+		
+		if(result.isPresent()) {
+			
+			theKoreografija = result.get();
+		}
+		else {
+			throw new RuntimeException("Nema te koreografija");
+		}
+		
+		return theKoreografija;
+	}
 
 }

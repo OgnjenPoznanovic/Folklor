@@ -149,6 +149,11 @@ public class Koreografija {
 		tempNosnja.setKoreografija_id(this);
 	}
 	
+	public void remove(Nosnja tempNosnja) {
+		
+		nosnje.remove(tempNosnja);
+	}
+	
 	public void setClana(List<Clan> clanovi) {
         this.clanovi = clanovi;
     }

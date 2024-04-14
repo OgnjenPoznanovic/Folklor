@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+    
+</head>
+<body>
+
+<div class="form-container" th:if="${add}">
+	  <form action=# th:action="@{/nosnja/saveNosnju}" th:object="${nosnja}" method="POST">
+	     
+	     
+	     	<input type="hidden" th:field="*{nosnja_id}" />
+	     
+	     	<label>Кореографија: </label>
+		       	 <select id="koreografija" style="margin-right: 30px;" th:field="*{koreografija_naziv}">
+		            <option th:each="koreografija : ${koreografijaList}" th:value="${koreografija.naziv}" th:text="${koreografija.naziv}"></option>
+		     </select>
+	     	
+	        <label>Пол: </label>
+	        <input type="text" th:field="*{pol}" required>
+	        
+	        <label>Област: </label>
+	        <input type="text" th:field="*{oblast}" required>
+	        
+	        <label>Део тела: </label>
+	        <input type="text" th:field="*{deo_tela}" required>
+	        
+	        <label>Величина:</label>
+	        <input type="text" th:field="*{velicina}" required>
+	        
+	        <label>Ознака:</label>
+	        <input type="text" th:field="*{oznaka}" required>
+	
+	          
+	         <input type="submit" value="Додај">
+	        
+	       
+	</form>
+</div>
+
+<div class="form-container" th:if="${update}">
+	  <form action=# th:action="@{/nosnja/saveNosnju}" th:object="${nosnja}" method="POST">
+	     
+	     
+	     	<input type="hidden" th:field="*{nosnja_id}" />
+	     
+	     	<label>Пол: </label>
+	        <input type="text" th:field="*{koreografija_naziv}" required>
+	     	
+	        <label>Пол: </label>
+	        <input type="text" th:field="*{pol}" required>
+	        
+	        <label>Област: </label>
+	        <input type="text" th:field="*{oblast}" required>
+	        
+	        <label>Део тела: </label>
+	        <input type="text" th:field="*{deo_tela}" required>
+	        
+	        <label>Величина:</label>
+	        <input type="text" th:field="*{velicina}" required>
+	        
+	        <label>Ознака:</label>
+	        <input type="text" th:field="*{oznaka}" required>
+	
+	          
+	         <input type="submit" value="Додај">
+	        
+	       
+	</form>
+</div>
+
+</body>
+</html>

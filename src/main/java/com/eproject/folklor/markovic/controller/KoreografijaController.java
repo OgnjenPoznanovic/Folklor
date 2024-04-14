@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import com.eproject.folklor.markovic.entity.Koreografija;
+import com.eproject.folklor.markovic.entity.Nosnja;
 import com.eproject.folklor.markovic.service.KoreografijaService;
 
 @Controller
@@ -41,6 +41,18 @@ public class KoreografijaController {
 		return "koreografija.html";
 	}
 	
+	@GetMapping("showNosnje")
+	public String showNosnje(@RequestParam("koreografija_id") int theId, Model theModel) {
+		
+		Koreografija theKoreografija = koreografijaService.findById(theId);
+		
+		List<Nosnja> nosnjaList = theKoreografija.getNosnje();
+		
+		theModel.addAttribute("nosnjaList", nosnjaList);
+		
+		return "koreografijaNosnje.html";
+	}
+	
 	
 	@GetMapping("/showForm")
 	public String showForm(Model theModel) {
@@ -66,6 +78,7 @@ public class KoreografijaController {
 	
 	@PostMapping("/save")
 	public String saveAnsambl(@ModelAttribute("koreografija") Koreografija theKoreografija) {
+			
 		
 		koreografijaService.save(theKoreografija);
 		
