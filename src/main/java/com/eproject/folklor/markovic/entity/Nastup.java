@@ -34,13 +34,13 @@ public class Nastup {
 	private int broj_ljudi;
 	
 	@Column(name="datum")
-	private Date datum;
+	private String datum;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="repertoar",
-			joinColumns=@JoinColumn(name="nastupi_id"),
+			joinColumns=@JoinColumn(name="nastup_id"),
 			inverseJoinColumns=@JoinColumn(name="koreografija_id"))
 	private List<Koreografija> koreografije;
 
@@ -49,7 +49,7 @@ public class Nastup {
 		
 	}
 
-	public Nastup(String mesto, String vreme_dolaska, int broj_ljudi, Date datum) {
+	public Nastup(String mesto, String vreme_dolaska, int broj_ljudi, String datum) {
 		this.mesto = mesto;
 		this.vreme_dolaska = vreme_dolaska;
 		this.broj_ljudi = broj_ljudi;
@@ -88,11 +88,11 @@ public class Nastup {
 		this.broj_ljudi = broj_ljudi;
 	}
 
-	public Date getDatum() {
+	public String getDatum() {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(String datum) {
 		this.datum = datum;
 	}
 	
@@ -109,6 +109,11 @@ public class Nastup {
 
         koreografije.add(tempKoreografija);
     }
+
+	public List<Koreografija> getKoreografije() {
+		return koreografije;
+	}
+	
 	
 	
 }

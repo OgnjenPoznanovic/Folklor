@@ -59,7 +59,7 @@ public class Koreografija {
 	@JoinTable(
 			name="repertoar",
 			joinColumns=@JoinColumn(name="koreografija_id"),
-			inverseJoinColumns=@JoinColumn(name="nastupi_id"))
+			inverseJoinColumns=@JoinColumn(name="nastup_id"))
 	private List<Nastup> nastupi;
 
 	public Koreografija() {
@@ -181,5 +181,31 @@ public class Koreografija {
 
         nastupi.add(tempNastup);
     }
+
+
+
+	public List<Clan> getClanovi() {
+		return clanovi;
+	}
+
+
+
+	public void setClanovi(List<Clan> clanovi) {
+		this.clanovi = clanovi;
+	}
+
+
+
+	public List<Nastup> getNastupi() {
+		return nastupi;
+	}
+
+
+
+	public void setNastupi(List<Nastup> nastupi) {
+		this.nastupi = nastupi;
+	}
+	
+	
 	
 }

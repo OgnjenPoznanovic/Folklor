@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наступ</title>
+    
+	<link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+    
+</head>
+<body>
+
+<div class="form-container">
+	  <form action=# th:action="@{/nastupi/save}" th:object="${nastup}" method="POST">
+	     
+	     	
+	     	<input type="hidden" th:field="*{nastup_id}" />
+	     	
+	        <label>Место: </label>
+	        <input type="text" th:field="*{mesto}" required>
+	        
+	        <label>Полазак: </label>
+	        <input type="text" th:field="*{vreme_dolaska}" required>
+	        
+	        <label>Број људи: </label>
+	        <input type="text" th:field="*{broj_ljudi}" required>
+	        
+	        <label>Датум:</label>
+	        <input type="text" th:field="*{datum}" required>	    	        	        	     
+	          
+	         <input type="submit" value="Додај">
+	              
+	</form>
+</div>
+
+</body>
+</html>
