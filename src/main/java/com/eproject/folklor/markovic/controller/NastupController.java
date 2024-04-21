@@ -3,6 +3,8 @@ package com.eproject.folklor.markovic.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.eproject.folklor.markovic.entity.Clan;
 import com.eproject.folklor.markovic.entity.Koreografija;
 import com.eproject.folklor.markovic.entity.Nastup;
+import com.eproject.folklor.markovic.service.ClanService;
 import com.eproject.folklor.markovic.service.KoreografijaService;
 import com.eproject.folklor.markovic.service.NastupService;
 
@@ -24,14 +28,32 @@ public class NastupController {
 
 	private NastupService nastupService;
 	private KoreografijaService koreografijaService;
+	private ClanService clanService;
 	
-	public NastupController(NastupService theNastupService, KoreografijaService theKoreografijaService) {
+	public NastupController(NastupService theNastupService, KoreografijaService theKoreografijaService, ClanService theClanService) {
+		
 		nastupService = theNastupService;
+		
 		koreografijaService= theKoreografijaService;
+		
+		clanService = theClanService;
+		
 	}
 
 	@GetMapping("/home")
-	public String backToHome() {
+	public String backToHome(Model theModel) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		System.out.println(korisnicko_ime);
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		String ime = theClan.getIme();
+		String prezime = theClan.getPrezime();
+			
+		theModel.addAttribute("ime", ime);
+		theModel.addAttribute("prezime", prezime);
 		
 		return "home.html";
 	}

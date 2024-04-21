@@ -21,7 +21,7 @@
     </div>
 
 	
-	<a id="addButton" th:href=@{/nastupi/showForm} >
+	<a id="addButton" th:href=@{/nastupi/showForm} sec:authorize="hasRole('ADMIN')">
 		Додај наступ
 	</a>
 
@@ -52,16 +52,16 @@
 				
 					<a class="btn btn-info btn-sm"
 					 th:href="@{/nastupi/showFormForUpdate(nastup_id=${tempNastup.nastup_id})}"				
-					 > Ажурирај </a>
+					 sec:authorize="hasRole('ADMIN')" > Ажурирај </a>
 				 	<a class="btn btn-danger btn-sm"
-				 	th:href="@{/nastupi/delete(nastup_id=${tempNastup.nastup_id})}"> 
-				 	Обриши </a>
+				 	th:href="@{/nastupi/delete(nastup_id=${tempNastup.nastup_id})}"
+				 	sec:authorize="hasRole('ADMIN')"> Обриши </a>
 				 	<a class="btn btn-success btn-sm"
-				 	th:href="@{/nastupi/showAddNastupKoreografijeForm(nastup_id=${tempNastup.nastup_id})}"> 
-				 	Додај </a>
+				 	th:href="@{/nastupi/showAddNastupKoreografijeForm(nastup_id=${tempNastup.nastup_id})}"
+				 	sec:authorize="hasRole('ADMIN')" > Додај </a>
 				 	<a class="btn btn-danger btn-sm"
-				 	th:href="@{/nastupi/showDeleteNastupKoreografijeForm(nastup_id=${tempNastup.nastup_id})}"> 
-				 	Избаци </a>
+				 	th:href="@{/nastupi/showDeleteNastupKoreografijeForm(nastup_id=${tempNastup.nastup_id})}"
+				 	sec:authorize="hasRole('ADMIN')"> Избаци </a>
 				</td>
 			</tr>
 		</tbody>

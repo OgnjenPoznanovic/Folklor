@@ -2,6 +2,8 @@ package com.eproject.folklor.markovic.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,19 @@ public class ClanController {
 	}
 	
 	@GetMapping("/home")
-	public String backToHome() {
+	public String backToHome(Model theModel) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		System.out.println(korisnicko_ime);
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		String ime = theClan.getIme();
+		String prezime = theClan.getPrezime();
+			
+		theModel.addAttribute("ime", ime);
+		theModel.addAttribute("prezime", prezime);
 		
 		return "home.html";
 	}

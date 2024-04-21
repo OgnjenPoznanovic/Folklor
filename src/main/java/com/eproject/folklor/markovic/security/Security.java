@@ -35,8 +35,17 @@ public class Security {
 		http
 		
 			.authorizeHttpRequests(configurer ->
-				configurer
-					
+				configurer					
+					.requestMatchers("/clanovi/registration/**").hasRole("ADMIN")
+					.requestMatchers("/clanovi/list/**").hasRole("ADMIN")
+					.requestMatchers("/uloge/role/**").hasRole("ADMIN")					
+					.requestMatchers("/koreografija/**").hasRole("ADMIN")
+					.requestMatchers("/ansambl/list/**").hasRole("ADMIN")
+					.requestMatchers("/ansambl/probe/**").hasRole("ADMIN")
+					.requestMatchers("/ansambl/clanovi/**").hasRole("ADMIN")
+					.requestMatchers("/nosnja/**").hasRole("ADMIN")
+					.requestMatchers("/clanarina/list/**").hasRole("ADMIN")
+					.requestMatchers("/proba/list/**").hasRole("ADMIN")
 					.anyRequest().authenticated()
 				
 		)

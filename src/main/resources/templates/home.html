@@ -12,17 +12,31 @@
 
     <script>
         window.history.pushState({}, "", "/home");
+    	
+    	 
     </script>
 
     
     <div class="menu">
         <h1> КУД Светозар Марковић </h1>
 
-        <a th:href="@{clanarina/list}">Чланарине</a>
+        <div class="dropdown">
+            <button class="dropbtn">Чланарина</button>
+            <div class="dropdown-content">
+                <a th:href="@{clanarina/list}">Чланарина</a>
+                <a th:href="@{clanarina/stats}">Статистика</a>
+                
+            </div>
+        </div>
         
-        <a th:href="@{proba/list}">Пробе</a>
-        
-        
+        <div class="dropdown">
+            <button class="dropbtn">Пробе</button>
+            <div class="dropdown-content">
+                <a th:href="@{proba/list}">Пробе</a>
+                <a th:href="@{proba/stats}">Статистика</a>
+                
+            </div>
+        </div>
    
         
         <div class="dropdown">
@@ -50,9 +64,18 @@
         </div>
         
         
+        
+        
         <form action="#" th:action="@{/logout}" method="POST">
             <input type="submit" value="Одјава" class="logout-btn" />
         </form>
     </div>
+    
+     
+    <p>Члан: <span th:text="${ime} + ' ' + ${prezime}" ></span></p>
+   
+
+   
+    
 </body>
 </html>
