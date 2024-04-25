@@ -1,12 +1,12 @@
 package com.eproject.folklor.markovic.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
-
-
 import com.eproject.folklor.markovic.entity.Nastup;
 import com.eproject.folklor.markovic.repository.NastupRepository;
 
@@ -54,7 +54,18 @@ public class NastupService {
 		
 	}
 
-
+	public List<Nastup> nastupInOneList(List<Nastup> allTheNastupi, List<Nastup> prijavljeni) {
+	    Set<Nastup> set1 = new HashSet<>(allTheNastupi);
+	    Set<Nastup> set2 = new HashSet<>(prijavljeni);
+	
+	    Set<Nastup> symmetricDifference = new HashSet<>(set1);
+	    symmetricDifference.addAll(set2); 
+	    Set<Nastup> intersection = new HashSet<>(set1);
+	    intersection.retainAll(set2); 
+	    symmetricDifference.removeAll(intersection);
+	
+	    return new ArrayList<>(symmetricDifference);
+	}
 
 
 

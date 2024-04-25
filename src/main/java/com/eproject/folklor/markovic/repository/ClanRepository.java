@@ -41,10 +41,11 @@ public interface ClanRepository extends JpaRepository<Clan, Integer>{
 	@Query(value="SELECT c.* FROM igrac c JOIN placene_obaveze po ON c.igrac_id = po.igrac_id JOIN clanarina cl ON po.clanarina_id = cl.clanarina_id WHERE cl.clanarina_id =:clanarina_id AND c.enabled = true", nativeQuery = true)
 	public List<Clan> findByClanarinaId(@Param("clanarina_id") Integer clanarina_id);
 	
-	
 	@Query(value="SELECT * FROM igrac WHERE enabled = true", nativeQuery = true)
 	public List<Clan> findAllActive();
 	
+	@Query(value="SELECT c.* FROM igrac c JOIN putuje p ON c.igrac_id = p.igrac_id WHERE c.igrac_id=:clan AND p.nastup_id=:nastup AND enabled = true", nativeQuery = true)
+	public Optional<Clan> putuje(@Param("clan") Integer igrac_id, @Param("nastup") Integer nastup_id);
 	
 	
 	

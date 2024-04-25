@@ -75,6 +75,7 @@ public class ClanController {
 		List<Clan> theClanovi = clanService.findAllActive();
 		
 		theModel.addAttribute("clanovi", theClanovi);
+		theModel.addAttribute("nastup", true);
 		
 		return "clan.html";
 	}

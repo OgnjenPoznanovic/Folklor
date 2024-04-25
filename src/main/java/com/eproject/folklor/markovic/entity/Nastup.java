@@ -43,6 +43,14 @@ public class Nastup {
 			joinColumns=@JoinColumn(name="nastup_id"),
 			inverseJoinColumns=@JoinColumn(name="koreografija_id"))
 	private List<Koreografija> koreografije;
+		
+	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinTable(
+			name="putuje",
+			joinColumns=@JoinColumn(name="nastup_id"),
+			inverseJoinColumns=@JoinColumn(name="igrac_id"))
+	private List<Clan> clanovi;
 
 	
 	public Nastup() {
@@ -112,6 +120,30 @@ public class Nastup {
 
 	public List<Koreografija> getKoreografije() {
 		return koreografije;
+	}
+
+	public List<Clan> getClanovi() {
+		return clanovi;
+	}
+
+	public void setClanovi(List<Clan> clanovi) {
+		this.clanovi = clanovi;
+	}
+	
+	public void addClana(Clan tempClan) {
+		if(clanovi == null) {
+			
+			clanovi = new ArrayList<Clan>();
+		}
+		
+		clanovi.add(tempClan);
+		
+	}
+	
+	public void removeClana(Clan tempClan) {
+			
+		clanovi.remove(tempClan);
+		
 	}
 	
 	

@@ -86,10 +86,10 @@ public class Clan {
 	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
-			name="nastupa",
+			name="putuje",
 			joinColumns=@JoinColumn(name="igrac_id"),
-			inverseJoinColumns=@JoinColumn(name="koreografija_id"))
-	private List<Koreografija> koreografije;
+			inverseJoinColumns=@JoinColumn(name="nastup_id"))
+	private List<Nastup> nastupi;
 	
 
 	public Clan() {
@@ -272,19 +272,27 @@ public class Clan {
         probe.add(tempProba);
     }
 	
-	public void setKoreografiju(List<Koreografija> koreografije) {
-        this.koreografije = koreografije;
-    }
-	
-	
-	public void addKoreografiju(Koreografija tempKoreografija) {
+	public void addNastup(Nastup tempNastup) {
+		
+		 if (nastupi == null) {
+			 nastupi = new ArrayList<>();
+	        }
 
-        if (koreografije == null) {
-        	koreografije = new ArrayList<>();
-        }
+		 nastupi.add(tempNastup);
+	}
+	
+	public void removeNastup(Nastup tempNastup) {
+		
+		 nastupi.remove(tempNastup);
+	}
 
-        koreografije.add(tempKoreografija);
-    }
+	public List<Nastup> getNastupi() {
+		return nastupi;
+	}
+
+	public void setNastupi(List<Nastup> nastupi) {
+		this.nastupi = nastupi;
+	}
 
 	public List<Proba> getProbe() {
 		return probe;

@@ -1,9 +1,11 @@
 package com.eproject.folklor.markovic.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,9 +71,39 @@ public class NastupController {
 	@GetMapping("/list")
 	public String showAll(Model theModel) {
 		
-		List<Nastup> theNastupi = nastupService.findAll();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Collection<? extends GrantedAuthority> uloga = auth.getAuthorities();
+		String korisnicko_ime = auth.getName();
 		
-		theModel.addAttribute("nastupi", theNastupi);
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		List<String> uloge = new ArrayList<>();
+		String theUloga = "ROLE_ADMIN";
+		List<Nastup> allTheNastupi = nastupService.findAll();
+		
+		for (GrantedAuthority authority : uloga) {
+				uloge.add(authority.getAuthority());
+		}
+		
+
+		if(theUloga.equals(uloge.get(0))){				
+			
+			theModel.addAttribute("nastupi", allTheNastupi);
+			
+		}else{
+			
+			//!naci sve koreografije za koje igrac nije prijavljen!
+				//svi nastupi (1)
+				
+				//naci sve za koje je prijavlje (1)
+				List<Nastup> prijavljeni = theClan.getNastupi();
+				
+				//uzmi razliku
+				List<Nastup> izbor = nastupService.nastupInOneList(allTheNastupi, prijavljeni);
+			
+				theModel.addAttribute("nastupi", izbor);
+			
+		}
 		
 		return "nastup.html";
 	}
@@ -327,10 +359,58 @@ public class NastupController {
 		return "redirect:/nastupi/list";
     }
 	
+	@GetMapping("/prijava")
+	public String prijava(@RequestParam("nastup_id") int theId) {
+		
+		Nastup theNastup = nastupService.findById(theId);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		
+		
+		//List<Clan> temp = theNastup.getClanovi();
+		
+		Boolean result;
+		Integer igrac_id = theClan.getClan_id();
+		
+		//i=funkcija koja prima id igraca i id nastupa vraca 1 ako je clan putuje, a 0 ako ne putuje
+		result = clanService.putuje(igrac_id, theId);
+		
+		if(result == true){
+		  
+			//poruka da je clan vec prijavljen
+			System.out.println("Vec si upisan");
+		  
+		}else{
+			
+			//poruka da je clan prijavljen
+			
+			theNastup.addClana(theClan);
+			
+			nastupService.save(theNastup);
+			
+			System.out.println("Uspesno upisan");
+		}
 	
+		return "redirect:/nastupi/list";
+		
+	}
 	
-	
-	
+	@GetMapping("/spisak")
+	public String spisak(@RequestParam("nastup_id") int theId, Model theModel) {
+		
+		Nastup theNastup = nastupService.findById(theId);
+		
+		List<Clan> clanovi = theNastup.getClanovi();
+		
+		theModel.addAttribute("clanovi", clanovi);
+		theModel.addAttribute("nastup", false);
+		
+		return "clan.html";
+		
+	}
 	
 }
 

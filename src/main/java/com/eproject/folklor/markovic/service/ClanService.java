@@ -291,42 +291,32 @@ public List<Clan> findByClanarinaId(Integer theId){
 	
 	
 	
+
+	public Boolean putuje(Integer igrac_id, Integer nastup_id) {
+		
+		Optional<Clan> result  = clanRepository.putuje(igrac_id, nastup_id);
+		
+		Boolean temp;
+		
+		if(result.isPresent()) {
+			
+			temp = true;
+		}else {
+		
+			temp = false;
+		}
+		
+		
+		
+		return temp;
+	
+	}
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

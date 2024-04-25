@@ -46,10 +46,10 @@
 					
 					
 					<td>
-						<a class="btn btn-info btn-sm"
+						<a class="btn btn-info btn-sm" th:if="${nastup}"
 					 	th:href="@{/clanovi/showUpdateForm(clan_id=${tempClan.clan_id})}"> 
 					 	Ажурирај </a>
-					 	<a  class="btn btn-danger btn-sm"
+					 	<a  class="btn btn-danger btn-sm" th:if="${nastup}"
 					 	th:href="@{/clanovi/delete(clan_id=${tempClan.clan_id})}"> 
 					 	Обриши </a>
 					</td>
