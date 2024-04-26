@@ -63,8 +63,8 @@
             </div>
         </div>
         
-        
-        
+       	<a th:href="@{clanovi/profil}" class="align-right">Профил</a>
+     
         
         <form action="#" th:action="@{/logout}" method="POST">
             <input type="submit" value="Одјава" class="logout-btn" />
@@ -72,7 +72,7 @@
     </div>
     
      
-    <p>Члан: <span th:text="${ime} + ' ' + ${prezime}" ></span></p>
+    <!-- <p>Члан: <span th:text="${ime} + ' ' + ${prezime}" ></span></p> -->
    
 
    

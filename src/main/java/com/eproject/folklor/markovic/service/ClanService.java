@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -289,8 +290,6 @@ public List<Clan> findByClanarinaId(Integer theId){
 		clanRepository.deleteById(theId);
 	}
 	
-	
-	
 
 	public Boolean putuje(Integer igrac_id, Integer nastup_id) {
 		
@@ -305,11 +304,47 @@ public List<Clan> findByClanarinaId(Integer theId){
 		
 			temp = false;
 		}
-		
-		
-		
+				
 		return temp;
 	
+	}
+	
+	
+	public int changePassword(String oldPassword, String newPassword, String newPassword1, Clan theClan) { 
+		
+		
+		String dbPassword = theClan.getPassword();
+		String passwordType = "{bcrypt}";
+		
+		String newString = dbPassword.substring(8); // Extract substring starting from index 8
+		
+		BCryptPasswordEncoder bCryptPasswordEncoder  = new BCryptPasswordEncoder();
+		
+		if(BCrypt.checkpw(oldPassword, newString)) {
+			
+			if(newPassword.equals(newPassword1)) {	
+				
+				String bCryptPassword = bCryptPasswordEncoder.encode(newPassword);
+				bCryptPassword = passwordType + bCryptPassword;
+				theClan.setPassword(bCryptPassword);
+		
+				update(theClan);
+				
+				return 1;
+				
+			}else {
+					
+			
+				return 0;
+			}
+		}else {
+				
+			
+			return 0;
+		}
+		
+		
+		
 	}
 
 

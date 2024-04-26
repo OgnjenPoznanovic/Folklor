@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почетна страница</title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/showList.css}">
+    
+</head>
+<body>
+
+    
+    <div class="menu">
+        <h1> КУД Светозар Марковић </h1>         
+        
+       	<a th:href="@{/home}">Почетна</a>
+       	
+       	<a th:href="@{/clanovi/sifra}">Промени шифру</a>
+     
+    </div>
+    
+    <br>
+    <h1 th:text="${ime} + ' ' + ${prezime}" ></h1>
+   
+
+   
+    
+</body>
+</html>

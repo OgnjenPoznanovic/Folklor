@@ -17,6 +17,8 @@ import com.eproject.folklor.markovic.entity.Uloge;
 import com.eproject.folklor.markovic.service.ClanService;
 import com.eproject.folklor.markovic.service.UlogeService;
 
+import entity_dto.SifraDTO;
+
 
 
 @Controller
@@ -36,8 +38,6 @@ public class ClanController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String korisnicko_ime = auth.getName();
-		
-		System.out.println(korisnicko_ime);
 		
 		Clan theClan = clanService.findByUsername(korisnicko_ime);
 		String ime = theClan.getIme();
@@ -152,7 +152,57 @@ public class ClanController {
 		return "redirect:/clanovi/list";
 	}
 	
-
+	@GetMapping("/profil")
+	public String profil(Model theModel) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		String ime = theClan.getIme();
+		String prezime = theClan.getPrezime();
+			
+		theModel.addAttribute("ime", ime);
+		theModel.addAttribute("prezime", prezime);
+		
+		
+		return "profil.html";
+	}
 	
+	@GetMapping("/sifra")
+	public String sifra(Model theModel) {
+		
+		SifraDTO thePassword = new SifraDTO();
+		theModel.addAttribute("sifraDTO", thePassword);
+		
+		
+		return "sifra.html";
+	}
+	
+	@PostMapping("/promena_sifra")
+	public String promena_sifra(@ModelAttribute("sifraDTO") SifraDTO thePassword, Model theModel) {	
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		
+		String oldP = thePassword.getOldPassword();
+		String newP = thePassword.getNewPassword();
+		String newP1 = thePassword.getNewPassword1();
+		
+		int temp = clanService.changePassword(oldP, newP, newP1, theClan);
+		
+		
+		if(temp == 1) {
+			theModel.addAttribute("promena", true);
+		}else {
+			theModel.addAttribute("promena", false);
+		}
+		
+		
+		return "redirect:/clanovi/profil";
+	}
 	
 }

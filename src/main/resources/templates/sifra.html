@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почетна страница</title>
+    
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/showList.css}">
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}">
+    
+</head>
+<body>
+
+   
+
+<div class="form-container">
+	   <form  action=# th:action="@{/clanovi/promena_sifra}" th:object="${sifraDTO}" method="POST">
+				
+				<label >Стара шифра:</label>
+		        <input type="password" th:field="*{oldPassword}" required>
+		        
+		        <label >Нова шифра:</label>
+		        <input type="password" th:field="*{newPassword}" required>
+		        
+		        <label >Понови шифру:</label>
+		        <input type="password" th:field="*{newPassword1}" required>	     
+		    
+		    <input type="submit" value="Промени">
+		    
+		     	
+		</form>
+</div>
+    
+</body>
+</html>
