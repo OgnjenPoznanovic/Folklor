@@ -66,6 +66,14 @@ public class NastupService {
 	
 	    return new ArrayList<>(symmetricDifference);
 	}
+	
+	public List<Nastup> finaLast3(Integer theId){
+		
+		List<Nastup> nastupi = nastupRepository.findLast3(theId);
+		
+		return nastupi;
+		
+	}
 
 
 

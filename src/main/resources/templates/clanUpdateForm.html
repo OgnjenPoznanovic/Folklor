@@ -38,6 +38,8 @@
 	<form  action=# th:action="@{/clanovi/update}" th:object="${clan}" method="POST">
 	     
 	     	<div class="first-column">
+	     	<input type="hidden" th:field="*{clan_id}" required>
+	     	
 	        <label >Корисничко име:</label>
 	        <input type="text" th:field="*{username}" required>
 			
@@ -60,8 +62,7 @@
 	        
 	        <br><br>
 	        
-	        <label >dozvola:</label>
-	        <input type="checkbox" th:field="*{enabled}" >
+	        <input type="hidden" th:field="*{enabled}" >
 	        
 	        <br><br>	        	       
 	       

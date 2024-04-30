@@ -72,6 +72,26 @@ public class ClanarinaController {
 		theModel.addAttribute("clan", theClan);
 		theModel.addAttribute("clanProbaDTO", theClanProbaDTO);
 		theModel.addAttribute("clanarine", theClanarina);
+		theModel.addAttribute("profil", false);
+		
+		return "clanarinaClanStats.html";
+		
+	}
+	
+	@GetMapping("/svePlacene")
+	public String svePlacene(Model theModel) {
+		
+		ClanProbaDTO theClanProbaDTO = new ClanProbaDTO();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		List<Clanarina> theClanarina = theClan.getClanarina();
+		
+		theModel.addAttribute("clan", theClan);
+		theModel.addAttribute("clanProbaDTO", theClanProbaDTO);
+		theModel.addAttribute("clanarine", theClanarina);
+		theModel.addAttribute("profil", true);
 		
 		return "clanarinaClanStats.html";
 		

@@ -20,7 +20,9 @@
 	<div class="menu">
         <h1> КУД Светозар Марковић </h1>
        
-        <a th:href="@{home}">Почетна</a>    
+        <a th:if="${pregled}" th:href="@{home}">Почетна</a>    
+        
+        <a th:href="@{/clanovi/profil}" th:if="${profil}">Профил</a> 
         
     </div>
 
@@ -39,7 +41,7 @@
 				<th>Полазак</th>
 				<th>Број људи</th>
 				<th>Датум</th>	
-				<th>Акције</th>
+				<th th:if="${pregled}">Акције</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -68,7 +70,7 @@
 				 	sec:authorize="hasRole('ADMIN')"> Избаци </a>
 				 	<a class="btn btn-info btn-sm"
 				 	th:href="@{/nastupi/prijava(nastup_id=${tempNastup.nastup_id})}"
-				 	sec:authorize="hasRole('IGRAC')"> Пријава </a>
+				 	sec:authorize="hasRole('IGRAC')" th:if="${pregled}"> Пријава </a>
 				 	<a class="btn btn-info btn-sm"
 				 	th:href="@{/nastupi/spisak(nastup_id=${tempNastup.nastup_id})}"
 				 	sec:authorize="hasRole('ADMIN')"> Играчи </a>

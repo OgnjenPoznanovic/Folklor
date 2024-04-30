@@ -31,13 +31,15 @@
         <h1> КУД Светозар Марковић </h1>
 
         
-        <a th:href="@{home}">Почетна</a>   
+        <a th:if="${!profil}" th:href="@{home}">Почетна</a>  
+        
+        <a th:if="${profil}" th:href="@{/clanovi/profil}">Профил</a>   
 
         
     </div>
   
 	
-	<form  action=# th:action="@{showAllClanarine}" th:object="${clanProbaDTO}" method="POST" style="margin-top:20px; margin-bottom:50px; margin-left:50px;">
+	<form  action=# th:action="@{showAllClanarine}" th:object="${clanProbaDTO}" method="POST" style="margin-top:20px; margin-bottom:50px; margin-left:50px;" sec:authorize="hasRole('ADMIN')">
 				
 			<label>Име: </label>
 			<input id="ime" type="text" th:field="*{ime}"  size="15" style="margin-right:15px;">
@@ -51,11 +53,11 @@
 	</form>
 	
 	
-	<div class="container">
+	<div class="container" sec:authorize="hasRole('ADMIN')">
     	<p class="bold"><span th:text="${clan.ime}"></span> <span th:text="${clan.prezime}"></span></p>
 	</div>
 	
-	<table style="width:90vw;"class="table table-bordered table-striped">
+	<table style="width:90vw; margin-top:50px;"class="table table-bordered table-striped">
 		<thead >
 			<tr>
 				<th>Месец</th>

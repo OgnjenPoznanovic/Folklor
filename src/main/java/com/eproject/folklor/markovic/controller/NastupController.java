@@ -89,6 +89,7 @@ public class NastupController {
 		if(theUloga.equals(uloge.get(0))){				
 			
 			theModel.addAttribute("nastupi", allTheNastupi);
+			theModel.addAttribute("pregled", false);
 			
 		}else{
 			
@@ -102,8 +103,24 @@ public class NastupController {
 				List<Nastup> izbor = nastupService.nastupInOneList(allTheNastupi, prijavljeni);
 			
 				theModel.addAttribute("nastupi", izbor);
+				theModel.addAttribute("pregled", true);
 			
 		}
+		
+		return "nastup.html";
+	}
+	
+	@GetMapping("/sviNastupi")
+	public String sviNastupi(Model theModel) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);		
+		List<Nastup> sviNastupi = theClan.getNastupi();
+		
+		theModel.addAttribute("nastupi", sviNastupi);
+		theModel.addAttribute("pregled", false);
+		theModel.addAttribute("profil", true);
 		
 		return "nastup.html";
 	}
@@ -396,6 +413,23 @@ public class NastupController {
 	
 		return "redirect:/nastupi/list";
 		
+	}
+	
+	@GetMapping("/odustajanje")
+	public String odjava(@RequestParam("nastup_id") int theId) {
+		
+		Nastup theNastup = nastupService.findById(theId);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		
+		theNastup.removeClana(theClan);
+		
+		nastupService.save(theNastup);
+		
+		return "redirect:/clanovi/profil";
 	}
 	
 	@GetMapping("/spisak")

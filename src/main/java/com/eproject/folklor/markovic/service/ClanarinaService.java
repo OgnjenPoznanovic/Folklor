@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.eproject.folklor.markovic.entity.Clanarina;
+
 import com.eproject.folklor.markovic.repository.ClanarinaRepository;
 
 @Service
@@ -91,5 +92,13 @@ public class ClanarinaService {
         return listWithoutDuplicates;
     }
 	
+	
+	public List<Clanarina> finaLast3(Integer theId){
+		
+		List<Clanarina> clanarine = clanarinaRepository.findLast3(theId);
+		
+		return clanarine;
+		
+	}
 	
 }

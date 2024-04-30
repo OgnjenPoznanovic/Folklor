@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eproject.folklor.markovic.entity.Clan;
+import com.eproject.folklor.markovic.entity.Clanarina;
+import com.eproject.folklor.markovic.entity.Nastup;
 import com.eproject.folklor.markovic.entity.Uloge;
 import com.eproject.folklor.markovic.service.ClanService;
+import com.eproject.folklor.markovic.service.ClanarinaService;
+import com.eproject.folklor.markovic.service.NastupService;
 import com.eproject.folklor.markovic.service.UlogeService;
 
 import entity_dto.SifraDTO;
@@ -27,10 +31,14 @@ public class ClanController {
 	
 	private ClanService clanService;
 	private UlogeService ulogeService;
+	private NastupService nastupService;
+	private ClanarinaService clanarinaService;
 	
-	public ClanController(ClanService theClanServicee, UlogeService theUlogeService) {
+	public ClanController(ClanService theClanServicee, UlogeService theUlogeService, NastupService theNastupService, ClanarinaService theClanarinaService) {
 		clanService = theClanServicee;
 		ulogeService = theUlogeService;
+		nastupService = theNastupService;
+		clanarinaService = theClanarinaService;
 	}
 	
 	@GetMapping("/home")
@@ -90,6 +98,18 @@ public class ClanController {
 		return "clanUpdateForm.html";
 		
 	}
+	
+	@GetMapping("updateFromProfile")
+	public String updateFromProfile(Model theModel) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String korisnicko_ime = auth.getName();
+		
+		Clan theClan = clanService.findByUsername(korisnicko_ime);
+		theModel.addAttribute("clan", theClan);
+		
+		return "clanUpdateForm.html";
+	}
 
 	@PostMapping("/update")
 	public String update(@ModelAttribute("clan") Clan theClan) {	
@@ -99,7 +119,7 @@ public class ClanController {
 		String newUsername = theClan.getUsername();
 		theClan.setPassword(tempClan.getPassword());
 		
-		System.out.println(theClan.getPassword());
+		
 		
 		if(oldUsername.equals(newUsername)) {	
 			
@@ -162,7 +182,12 @@ public class ClanController {
 		Clan theClan = clanService.findByUsername(korisnicko_ime);
 		String ime = theClan.getIme();
 		String prezime = theClan.getPrezime();
-			
+		
+		List<Nastup> nastupi = nastupService.finaLast3(theClan.getClan_id());
+		List<Clanarina> clanarine = clanarinaService.finaLast3(theClan.getClan_id());
+		
+		theModel.addAttribute("clanarine", clanarine);
+		theModel.addAttribute("nastupi", nastupi);
 		theModel.addAttribute("ime", ime);
 		theModel.addAttribute("prezime", prezime);
 		
