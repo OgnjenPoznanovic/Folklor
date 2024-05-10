@@ -137,6 +137,17 @@ th, td {
     cursor: pointer;
 }     
 
+.sort{
+	position: absolute;
+	width: 255px;
+    right: 62px;
+   
+}
+
+.sortButton{
+    right: 50px;
+}
+
 #centered-heading {
   text-align: center;
 }   

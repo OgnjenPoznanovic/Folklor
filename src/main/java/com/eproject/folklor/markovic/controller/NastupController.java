@@ -89,7 +89,7 @@ public class NastupController {
 		if(theUloga.equals(uloge.get(0))){				
 			
 			theModel.addAttribute("nastupi", allTheNastupi);
-			theModel.addAttribute("pregled", false);
+			theModel.addAttribute("pregled", true);
 			
 		}else{
 			

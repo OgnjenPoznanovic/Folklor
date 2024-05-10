@@ -1,5 +1,6 @@
 package com.eproject.folklor.markovic.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ import com.eproject.folklor.markovic.service.ClanarinaService;
 import com.eproject.folklor.markovic.service.NastupService;
 import com.eproject.folklor.markovic.service.UlogeService;
 
+import entity_dto.ClanSortDTO;
 import entity_dto.SifraDTO;
 
 
@@ -81,9 +83,49 @@ public class ClanController {
 	public String showAll(Model theModel) {
 		
 		List<Clan> theClanovi = clanService.findAllActive();
+		ClanSortDTO theClanSortDTO = new ClanSortDTO();
 		
 		theModel.addAttribute("clanovi", theClanovi);
+		theModel.addAttribute("sortDTO", theClanSortDTO);
 		theModel.addAttribute("nastup", true);
+		
+		return "clan.html";
+	}
+	
+	@PostMapping("/sort")
+	public String sort(@ModelAttribute("sortDTO") ClanSortDTO theClanSortDTO, Model theModel) {
+		
+		String kriterijum = theClanSortDTO.getKriterijum();
+		String vrsta = theClanSortDTO.getVrsta();
+		
+		List<Clan> theClanovi = new ArrayList<>();
+		
+		if(kriterijum.equals("godiste")){
+			if(vrsta.equals("rastuce")){
+				
+				theClanovi=clanService.orderByGodisteASC();
+				
+			}else {
+			
+				theClanovi=clanService.orderByGodisteDESC();
+				
+			}
+		}else {
+		if(vrsta.equals("rastuce")){
+				
+			theClanovi=clanService.orderByGodinaUpisaDESC();
+				
+				
+			}else {
+				
+				theClanovi=clanService.orderByGodinaUpisaASC();
+				
+			}
+			
+		}
+		
+		
+		theModel.addAttribute("clanovi", theClanovi);
 		
 		return "clan.html";
 	}

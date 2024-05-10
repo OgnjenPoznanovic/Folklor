@@ -49,6 +49,26 @@ public class ClanService {
 		return clanRepository.findAll();
 	}
 	
+	public List<Clan> orderByGodisteASC(){
+		
+		return clanRepository.orderByGodisteASC();
+	}
+	
+	public List<Clan> orderByGodisteDESC(){
+		
+		return clanRepository.orderByGodisteDESC();
+	}
+	
+	public List<Clan> orderByGodinaUpisaASC(){
+		
+		return clanRepository.orderByGodinaUpisaASC();
+	}
+	
+	public List<Clan> orderByGodinaUpisaDESC(){
+		
+		return clanRepository.orderByGodinaUpisaDESC();
+	}
+	
 	public List<Clan> findAllActive(){
 		
 		List<Clan> clanovi = clanRepository.findAllActive();

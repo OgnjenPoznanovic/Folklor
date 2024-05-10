@@ -22,6 +22,18 @@ public interface ClanRepository extends JpaRepository<Clan, Integer>{
 	@Query(value = "SELECT * FROM igrac WHERE ime=:ime", nativeQuery = true)
 	public List<Clan> findByIme(@Param("ime") String ime);
 	
+	@Query(value = "SELECT * FROM igrac WHERE enabled = true ORDER BY godiste ASC ", nativeQuery = true)
+	public List<Clan> orderByGodisteASC();
+	
+	@Query(value = "SELECT * FROM igrac WHERE enabled = true ORDER BY godiste DESC ", nativeQuery = true)
+	public List<Clan> orderByGodisteDESC();
+	
+	@Query(value = "SELECT * FROM igrac WHERE enabled = true ORDER BY godina_upisa ASC ", nativeQuery = true)
+	public List<Clan> orderByGodinaUpisaASC();
+	
+	@Query(value = "SELECT * FROM igrac WHERE enabled = true ORDER BY godina_upisa DESC ", nativeQuery = true)
+	public List<Clan> orderByGodinaUpisaDESC();
+	
 	@Query(value = "SELECT * FROM igrac WHERE prezime =:prezime", nativeQuery = true)
 	public List<Clan> findByPrezime(@Param("prezime") String prezime);
 	
