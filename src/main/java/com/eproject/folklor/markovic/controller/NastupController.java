@@ -2,7 +2,17 @@ package com.eproject.folklor.markovic.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.awt.Desktop;
+import java.io.File;
+import java.util.*;
+
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.eproject.folklor.markovic.entity.Clan;
 import com.eproject.folklor.markovic.entity.Koreografija;
 import com.eproject.folklor.markovic.entity.Nastup;
+import com.eproject.folklor.markovic.entity.PDF;
 import com.eproject.folklor.markovic.service.ClanService;
 import com.eproject.folklor.markovic.service.KoreografijaService;
 import com.eproject.folklor.markovic.service.NastupService;
 
+import entity_dto.KoreografijaNosnjaDTO;
 import entity_dto.NastupKoreografijeDTO;
 
 @Controller
@@ -436,8 +448,22 @@ public class NastupController {
 	public String spisak(@RequestParam("nastup_id") int theId, Model theModel) {
 		
 		Nastup theNastup = nastupService.findById(theId);
+		Integer nastupId = theNastup.getNastup_id();
 		
-		List<Clan> clanovi = theNastup.getClanovi();
+		List<Integer> clanovi_id = nastupService.findAllClanInfoByNastupId(nastupId);
+		List<Clan> clanovi = new ArrayList<>();
+		Clan theClan = new Clan();
+		
+		for(Integer clan_id: clanovi_id) {
+			
+			theClan = clanService.findById(clan_id);
+			clanovi.add(theClan);
+			
+		}
+		
+		for(Clan clan: clanovi) {
+			System.out.println(clan.getIme());
+		}
 		
 		theModel.addAttribute("clanovi", clanovi);
 		theModel.addAttribute("nastup", false);
@@ -445,6 +471,132 @@ public class NastupController {
 		return "clan.html";
 		
 	}
+	
+	
+	@GetMapping("/generatePDF")
+    public String generatePDF(Model theModel) {
+		
+		
+		List<Nastup> theNastup = nastupService.findAll();
+		PDF thePDF = new PDF();
+		List<String> theUslovi = new ArrayList<>();
+		theUslovi.add("godine");
+		theUslovi.add("iskustvo");
+		
+		
+		theModel.addAttribute("pdf", thePDF);
+		theModel.addAttribute("nastupi", theNastup);
+		theModel.addAttribute("uslovi", theUslovi);
+		
+		
+        return "ansamblGenerate.html";
+    }
+	
+	@PostMapping("/pdf")
+    public String pdf(@ModelAttribute("pdf") PDF thePDF) {
+		
+		
+		String nastup_name = thePDF.getMesto();
+		String uslov = thePDF.getUslov();
+		
+		//System.out.println(nastup_name + " " + uslov);
+		
+		
+		//iz imena izvuci nastup
+		Nastup theNastup = nastupService.findByPlace(nastup_name);
+		
+		int broj_ljudi=theNastup.getBroj_ljudi();
+		
+		Integer nastupId = theNastup.getNastup_id();
+		
+		List<Integer> clanovi_id = nastupService.findAllClanInfoByNastupId(nastupId);
+		List<Clan> clanovi = new ArrayList<>();
+		Clan theClan = new Clan();
+		
+		for(Integer clan_id: clanovi_id) {
+			
+			theClan = clanService.findById(clan_id);
+			clanovi.add(theClan);
+			
+		}
+		
+	
+		//u zavisnosti od uslova
+		if(uslov.equalsIgnoreCase("godine")) {
+			
+		
+			Collections.sort(clanovi, Comparator.comparingInt(Clan::getGodiste));
+						
+			List<Clan> konacan_spisak = clanovi.size() > broj_ljudi ? clanovi.subList(0, broj_ljudi) : clanovi;
+			
+			for(Clan clan: konacan_spisak) {
+				
+				System.out.println(clan.getGodiste());
+			}
+			
+			finalPDF(konacan_spisak, nastup_name);
+			
+		}else {
+			
+			Collections.sort(clanovi, Comparator.comparingInt(Clan::getGodina_upisa));
+			
+			List<Clan> konacan_spisak = clanovi.size() > broj_ljudi ? clanovi.subList(0, broj_ljudi) : clanovi;
+			
+			for(Clan clan: konacan_spisak) {
+				
+				System.out.println(clan.getGodina_upisa());
+			}
+			
+			finalPDF(konacan_spisak, nastup_name);
+		}		
+		
+        return "home.html";
+    }
+	
+	public void finalPDF(List<Clan> konacnan_spisak, String mesto) {
+		
+		String downloadsPath = System.getProperty("user.home") + "/Downloads";
+        String dest = downloadsPath + "/" + mesto + "_ansambl.pdf";
+
+        try {
+            // Create a PdfWriter
+            PdfWriter writer = new PdfWriter(dest);
+
+            // Create a PdfDocument
+            PdfDocument pdfDoc = new PdfDocument(writer);
+
+            // Create a Document (layout)
+            Document document = new Document(pdfDoc);
+            
+            document.add(new Paragraph("Konačan spisak ljudi").setBold().setFontSize(20));
+            
+            Table table = new Table(2);
+            table.addCell("Ime");
+            table.addCell("Prezime");
+
+            for (Clan clan : konacnan_spisak) {
+                table.addCell(clan.getIme());
+                table.addCell(clan.getPrezime());
+            }
+            
+            
+            document.add(table);
+            
+
+            // Close the document
+            document.close();
+            
+            
+
+            System.out.println("PDF created successfully: " + new File(dest).getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+		
+	}
+	
+	
 	
 }
 

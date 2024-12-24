@@ -17,33 +17,38 @@
         <h1> КУД Светозар Марковић </h1>
 
         
-        <a th:href="@{home}">Почетна</a>    
+        <a th:href="@{home}">Почетна</a>
+        <a th:href="@{search}">Претрага</a>    
 
     </div> 
     
     <br>
     
-    <div class="sort">
-		<form action=# th:action="@{/clanovi/sort}" th:object="${sortDTO}" method="POST" style="margin:5px;">
-		       	         
-		   	<select th:field="*{kriterijum}">
-		       	<option value="godiste">годиште</option>
-		        <option value="iskustvo">искуство</option>         
-		    </select>
-		    
-		    <select th:field="*{vrsta}">
-		       	<option value="rastuce">растуће</option>
-		        <option value="opadajuce">опадајуће</option>         
-		    </select>
-		    
-			<br><br>
-			
-		    <input type="submit" value="Сортирај">
-		    
-		     	
-		</form>
-	</div>
+  
+    	
     
+	    <div class="sort" >
+			<form action=# th:action="@{/clanovi/sort}" th:object="${sortDTO}" method="POST" style="margin:5px;">
+			       	         
+			   	<select th:field="*{kriterijum}">
+			       	<option value="godiste">годиште</option>
+			        <option value="iskustvo">искуство</option>         
+			    </select>
+			    
+			    <select th:field="*{vrsta}">
+			       	<option value="rastuce">растуће</option>
+			        <option value="opadajuce">опадајуће</option>         
+			    </select>
+			    
+				<br><br>
+				
+			    <input type="submit" value="Сортирај">
+			    
+			     	
+			</form>
+		</div>
+	   
+	 
     <br><br><br><br>
         
     <div class="table-container">

@@ -22,6 +22,8 @@ import com.eproject.folklor.markovic.service.ClanarinaService;
 import com.eproject.folklor.markovic.service.NastupService;
 import com.eproject.folklor.markovic.service.UlogeService;
 
+import entity_dto.AnsamblClanoviDTO;
+import entity_dto.ClanDTO;
 import entity_dto.ClanSortDTO;
 import entity_dto.SifraDTO;
 
@@ -86,11 +88,68 @@ public class ClanController {
 		ClanSortDTO theClanSortDTO = new ClanSortDTO();
 		
 		theModel.addAttribute("clanovi", theClanovi);
-		theModel.addAttribute("sortDTO", theClanSortDTO);
+		theModel.addAttribute("sortDTO", theClanSortDTO);		
 		theModel.addAttribute("nastup", true);
 		
 		return "clan.html";
 	}
+	
+	@GetMapping("/search")
+	public String search(Model theModel) {
+		
+		
+		System.out.println("tu sam");
+		ClanDTO theClanDTO = new ClanDTO();
+		
+		theModel.addAttribute("clanDTO", theClanDTO);
+		
+		
+		return "clanSearch.html";
+	
+	}
+	
+	@PostMapping("/find")
+	public String find(@ModelAttribute("clanDTO") ClanDTO theClanDTO, Model theModel) {
+		
+		
+		ClanSortDTO theClanSortDTO = new ClanSortDTO();
+		
+		String ime = theClanDTO.getIme();
+		String prezime = theClanDTO.getPrezime();
+		
+		List<Clan> theClanovi = new ArrayList<>();
+		
+		if(ime.isEmpty()) {
+			
+			if(prezime.isEmpty()) {
+				
+			}else {
+			
+				theClanovi = clanService.findByPrezime(prezime);
+				
+			}
+		}else {	
+			if(prezime.isEmpty()) {
+				
+				theClanovi = clanService.findByIme(ime);
+				
+			}else {
+				
+				theClanovi = clanService.findByImeAndPrezime(ime, prezime);
+			}
+			
+		}
+		
+		
+		theModel.addAttribute("clanovi", theClanovi);
+		theModel.addAttribute("sortDTO", theClanSortDTO);		
+		theModel.addAttribute("nastup", true);	
+		
+		
+		return "clan.html";
+	
+	}
+	
 	
 	@PostMapping("/sort")
 	public String sort(@ModelAttribute("sortDTO") ClanSortDTO theClanSortDTO, Model theModel) {

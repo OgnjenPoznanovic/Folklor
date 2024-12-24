@@ -6,6 +6,21 @@ body {
 }
 
     
+.form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns the button to the right */
+}
+
 a {
 	text-decoration: none;
 	color: #333;
@@ -93,6 +108,18 @@ h1 {
         
 #addButton {
 	background-color: green;
+	color: white;
+	padding: 10px;
+	text-decoration: none;
+	display: inline-block;
+	margin-left: 50px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+#generateButton {
+	background-color: orange;
 	color: white;
 	padding: 10px;
 	text-decoration: none;

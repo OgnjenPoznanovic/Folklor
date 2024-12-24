@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+
+import com.eproject.folklor.markovic.entity.Clan;
 import com.eproject.folklor.markovic.entity.Nastup;
 import com.eproject.folklor.markovic.repository.NastupRepository;
 
@@ -73,6 +75,22 @@ public class NastupService {
 		
 		return nastupi;
 		
+	}
+	
+	public Nastup findByPlace(String name) {
+		
+		Nastup theNastup = new Nastup();
+		
+		theNastup = nastupRepository.findByPlace(name);
+		
+		return theNastup;
+	}
+
+	public List<Integer> findAllClanInfoByNastupId(Integer nastupId) {
+		
+		List<Integer> theClanovi = nastupRepository.findAllClanInfoByNastupId(nastupId);
+		
+		return theClanovi;
 	}
 
 

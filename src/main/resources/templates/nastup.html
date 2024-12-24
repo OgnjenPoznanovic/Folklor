@@ -30,6 +30,10 @@
 	<a id="addButton" th:href=@{/nastupi/showForm} sec:authorize="hasRole('ADMIN')">
 		Додај наступ
 	</a>
+	
+	<a id="generateButton" th:href=@{/nastupi/generatePDF} sec:authorize="hasRole('ADMIN')">
+		Генерисати ансамбл
+	</a>
 
 	
 	<br><br>
